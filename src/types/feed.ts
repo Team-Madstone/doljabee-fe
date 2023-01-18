@@ -13,3 +13,9 @@ export type TFeedMutaionBase = {
 
 export type TGetFeedMutation = TFeedMutaionBase;
 export type TDeleteFeedMutation = TFeedMutaionBase;
+
+export type TUploadFeedMutation = {
+  title: string;
+  text: string;
+  photo?: File;
+};
