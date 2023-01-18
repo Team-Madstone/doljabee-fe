@@ -19,3 +19,5 @@ export type TUploadFeedMutation = {
   text: string;
   photo?: File;
 };
+
+export type TUpdateFeedMutation = TFeedMutaionBase & TUploadFeedMutation;
