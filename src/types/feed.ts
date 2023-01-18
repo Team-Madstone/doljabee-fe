@@ -6,3 +6,10 @@ export type TFeed = {
   createdAt?: string;
   likes?: number;
 };
+
+export type TFeedMutaionBase = {
+  id: number;
+};
+
+export type TGetFeedMutation = TFeedMutaionBase;
+export type TDeleteFeedMutation = TFeedMutaionBase;
