@@ -1,0 +1,18 @@
+.feedContainer {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 10px;
+  span {
+    display: inline-block;
+    padding: 5px;
+    font-size: 14px;
+  }
+  h3 {
+    padding: 5px;
+  }
+  p {
+    padding: 5px;
+    color: #777;
+  }
+}
