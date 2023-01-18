@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import './styles/styles.scss';
 import Home from './pages/Home';
 import UploadFeed from './pages/UploadFeed';
 
