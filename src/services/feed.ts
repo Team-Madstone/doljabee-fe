@@ -4,6 +4,7 @@ import {
   TDeleteFeedMutation,
   TFeed,
   TGetFeedMutation,
+  TUpdateFeedMutation,
   TUploadFeedMutation,
 } from '../types/feed';
 
@@ -27,6 +28,20 @@ export const uploadFeed = async ({
   photo && formData.append('photo', photo);
 
   return axiosInstance.post(`/feed`, formData);
+};
+
+export const updateFeed = async ({
+  id,
+  title,
+  text,
+  photo,
+}: TUpdateFeedMutation) => {
+  const formData = new FormData();
+  console.log(id, title, text, photo);
+  formData.append('title', title);
+  formData.append('text', text);
+  photo && formData.append('photo', photo);
+  return await axiosInstance.put(`/feed/${id}`, formData);
 };
 
 export const deleteFeed = ({ id }: TDeleteFeedMutation) =>
