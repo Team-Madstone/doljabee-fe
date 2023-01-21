@@ -47,7 +47,11 @@ export default function FeedDetail() {
           <h3>{feed.title}</h3>
           <p>{feed.text}</p>
           {feed.photo && (
-            <img src={`http://localhost:4000/${feed.photo}`} alt="img" />
+            <img
+              src={`http://localhost:4000/${feed.photo}`}
+              style={{ width: '300px' }}
+              alt="img"
+            />
           )}
           <div>
             <span>like {feed.likes} </span>
