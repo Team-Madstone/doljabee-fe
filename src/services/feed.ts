@@ -37,7 +37,6 @@ export const updateFeed = async ({
   photo,
 }: TUpdateFeedMutation) => {
   const formData = new FormData();
-  console.log(id, title, text, photo);
   formData.append('title', title);
   formData.append('text', text);
   photo && formData.append('photo', photo);
