@@ -3,42 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { APP } from '../constances/routes';
 import { uploadFeed } from '../services/feed';
+import { TFormValue } from '../types/feed';
 import { getErrorState } from '../utils/error';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 export default function UploadFeed() {
-  const [form, setForm] = useState({ title: '', text: '' });
-  const [photo, setPhoto] = useState<File>();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<TFormValue>();
   const [preview, setPreview] = useState<string>();
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setForm({ ...form, [name]: value });
+  const handlePhotoFileChange = async (event: any) => {
+    const file = event.target.files[0];
+    file && setPreview(URL.createObjectURL(file));
   };
 
-  const handlePhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-
-    if (!files) {
-      return;
-    }
-
-    const file = files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      setPreview(event.target?.result as string);
-    };
-    reader.readAsDataURL(file);
-    setPhoto(file);
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const { title, text } = form;
-
+  const onValid: SubmitHandler<TFormValue> = ({
+    title,
+    text,
+    photoFile,
+  }: TFormValue) => {
     try {
-      uploadFeed({ title, text, photo });
+      uploadFeed({ title, text, photoFile: photoFile?.[0] });
       navigate(APP.HOME);
     } catch (error) {
       const state = getErrorState(error);
@@ -54,37 +43,47 @@ export default function UploadFeed() {
         method="POST"
         encType="multipart/form-data"
         className="uploadForm"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onValid)}
       >
         <div>
           <label htmlFor="title">Title</label>
           <input
             id="title"
             type="text"
-            name="title"
-            onChange={handleChange}
-            maxLength={30}
-            required
+            {...register('title', {
+              required: '해당 필드는 필수입니다.',
+              maxLength: {
+                value: 30,
+                message: '30글자 이하로 작성해주세요.',
+              },
+            })}
           />
+          {errors?.title && <p className="error">{errors.title?.message}</p>}
         </div>
         <div>
           <label htmlFor="text">text</label>
           <input
             id="text"
             type="text"
-            name="text"
-            onChange={handleChange}
-            required
+            {...register('text', {
+              required: '해당 필드는 필수입니다.',
+              minLength: {
+                value: 3,
+                message: '3글자 이상 작성해주세요.',
+              },
+            })}
           />
+          {errors?.text && <p className="error">{errors.text?.message}</p>}
         </div>
         <div>
-          <label htmlFor="photo">Photo</label>
+          <label htmlFor="photoFile">Photo</label>
           <input
-            id="photo"
+            id="photoFile"
             type="file"
             accept="image/*"
-            onChange={handlePhoto}
-            name="photo"
+            {...register('photoFile', {
+              onChange: handlePhotoFileChange,
+            })}
           />
         </div>
         <div>
