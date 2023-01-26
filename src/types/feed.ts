@@ -17,7 +17,13 @@ export type TDeleteFeedMutation = TFeedMutaionBase;
 export type TUploadFeedMutation = {
   title: string;
   text: string;
-  photo?: File;
+  photoFile?: File;
 };
 
 export type TUpdateFeedMutation = TFeedMutaionBase & TUploadFeedMutation;
+
+export type TFormValue = {
+  title: string;
+  text: string;
+  photoFile?: File[];
+};
