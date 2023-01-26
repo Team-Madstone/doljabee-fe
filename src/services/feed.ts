@@ -34,12 +34,12 @@ export const updateFeed = async ({
   id,
   title,
   text,
-  photo,
+  photoFile,
 }: TUpdateFeedMutation) => {
   const formData = new FormData();
   formData.append('title', title);
   formData.append('text', text);
-  photo && formData.append('photo', photo);
+  photoFile && formData.append('photo', photoFile);
   return await axiosInstance.put(`/feed/${id}`, formData);
 };
 
