@@ -20,12 +20,12 @@ export const getFeed = ({ id }: TGetFeedMutation) =>
 export const uploadFeed = async ({
   title,
   text,
-  photo,
+  photoFile,
 }: TUploadFeedMutation) => {
   const formData = new FormData();
   formData.append('title', title);
   formData.append('text', text);
-  photo && formData.append('photo', photo);
+  photoFile && formData.append('photo', photoFile);
 
   return axiosInstance.post(`/feed`, formData);
 };
