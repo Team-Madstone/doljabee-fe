@@ -61,6 +61,10 @@ export default function EditFeed() {
     }
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
       <Nav />
@@ -123,7 +127,7 @@ export default function EditFeed() {
               )}
             </div>
             <button type="submit">저장하기</button>
-            <button>취소하기</button>
+            <button onClick={handleGoBack}>취소하기</button>
           </form>
         </div>
       )}
