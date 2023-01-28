@@ -1,5 +1,5 @@
 export type TFeed = {
-  id: number;
+  _id: string;
   title: string;
   text: string;
   photo?: string;
@@ -8,7 +8,7 @@ export type TFeed = {
 };
 
 export type TFeedMutaionBase = {
-  id: number;
+  _id: string;
 };
 
 export type TGetFeedMutation = TFeedMutaionBase;
