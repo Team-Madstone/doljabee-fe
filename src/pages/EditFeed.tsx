@@ -10,7 +10,7 @@ import Loading from '../components/Loading';
 
 export default function EditFeed() {
   const params = useParams();
-  const id = Number(params.id);
+  const _id = params.id;
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -22,10 +22,10 @@ export default function EditFeed() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const syncGetFeed = async (id: number) => {
+    const syncGetFeed = async (_id: string) => {
       try {
         setLoading(true);
-        const response = await getFeed({ id });
+        const response = await getFeed({ _id });
         const { title, text, photo } = response.data;
         title && setValue('title', title);
         text && setValue('text', text);
@@ -39,7 +39,7 @@ export default function EditFeed() {
         setLoading(false);
       }
     };
-    syncGetFeed(id);
+    _id && syncGetFeed(_id);
   }, []);
 
   const handlePhotoFileChange = (event: any) => {
@@ -53,7 +53,9 @@ export default function EditFeed() {
     photoFile,
   }: TFormValue) => {
     try {
-      updateFeed({ id, title, text, photoFile: photoFile?.[0] });
+      if (_id) {
+        updateFeed({ _id, title, text, photoFile: photoFile?.[0] });
+      }
       navigate(APP.HOME);
     } catch (error) {
       const state = getErrorState(error);

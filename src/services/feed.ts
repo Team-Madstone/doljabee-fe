@@ -14,8 +14,8 @@ const axiosInstance = axios.create({
 
 export const getFeeds = () => axiosInstance.get<TFeed[]>('/feed');
 
-export const getFeed = ({ id }: TGetFeedMutation) =>
-  axiosInstance.get<TFeed>(`/feed/${id}`);
+export const getFeed = ({ _id }: TGetFeedMutation) =>
+  axiosInstance.get<TFeed>(`/feed/${_id}`);
 
 export const uploadFeed = async ({
   title,
@@ -31,7 +31,7 @@ export const uploadFeed = async ({
 };
 
 export const updateFeed = async ({
-  id,
+  _id,
   title,
   text,
   photoFile,
@@ -40,10 +40,10 @@ export const updateFeed = async ({
   formData.append('title', title);
   formData.append('text', text);
   photoFile && formData.append('photo', photoFile);
-  return await axiosInstance.put(`/feed/${id}`, formData);
+  return await axiosInstance.put(`/feed/${_id}`, formData);
 };
 
-export const deleteFeed = ({ id }: TDeleteFeedMutation) =>
+export const deleteFeed = ({ _id }: TDeleteFeedMutation) =>
   axiosInstance.delete(`/feed`, {
-    data: { id },
+    data: { _id },
   });

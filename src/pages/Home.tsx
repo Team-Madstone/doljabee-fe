@@ -37,7 +37,7 @@ export default function Home() {
       ) : (
         <div>
           {feeds &&
-            feeds.map((feed: TFeed) => <Feed key={feed.id} feed={feed} />)}
+            feeds.map((feed: TFeed) => <Feed key={feed._id} feed={feed} />)}
         </div>
       )}
     </div>
