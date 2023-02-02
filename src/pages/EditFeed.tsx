@@ -81,12 +81,12 @@ export default function EditFeed() {
             onSubmit={handleSubmit(onValid)}
           >
             <div>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">제목</label>
               <input
                 id="title"
                 type="text"
                 {...register('title', {
-                  required: '해당 필드는 필수입니다.',
+                  required: '제목은 필수입니다.',
                   maxLength: {
                     value: 30,
                     message: '30글자 이하로 작성해주세요.',
@@ -98,12 +98,12 @@ export default function EditFeed() {
               )}
             </div>
             <div>
-              <label htmlFor="text">text</label>
+              <label htmlFor="text">내용</label>
               <input
                 id="text"
                 type="text"
                 {...register('text', {
-                  required: '해당 필드는 필수입니다.',
+                  required: '내용은 필수입니다.',
                   minLength: {
                     value: 3,
                     message: '3글자 이상 작성해주세요.',
@@ -113,7 +113,7 @@ export default function EditFeed() {
               {errors?.text && <p className="error">{errors.text?.message}</p>}
             </div>
             <div>
-              <label htmlFor="photoFile">Photo</label>
+              <label htmlFor="photoFile">사진</label>
               <input
                 id="photoFile"
                 type="file"
