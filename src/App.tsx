@@ -7,6 +7,7 @@ import FeedDetail from './pages/FeedDetail';
 import { APP, FEED } from './constances/routes';
 import Error from './pages/Error';
 import EditFeed from './pages/EditFeed';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path={FEED.FEED} element={<FeedDetail />}></Route>
         <Route path={FEED.UPLOAD} element={<UploadFeed />}></Route>
         <Route path={FEED.EDIT} element={<EditFeed />}></Route>
+        <Route path={APP.SIGNUP} element={<Signup />}></Route>
         <Route path={APP.ERROR} element={<Error />}></Route>
       </Routes>
     </div>
