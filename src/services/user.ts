@@ -9,3 +9,7 @@ const axiosInstance = axios.create({
 export const signup = (data: TSignupMutation) => {
   return axiosInstance.post('/user', data);
 };
+
+export const signToken = (token: string) => {
+  return axiosInstance.get('/user/signToken', { params: { token } });
+};
