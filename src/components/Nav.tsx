@@ -10,6 +10,9 @@ export default function Nav() {
         <div className="navMenu">
           <NavLink to="/upload">Upload</NavLink>
         </div>
+        <div className="navMenu">
+          <NavLink to="/login">Login</NavLink>
+        </div>
       </nav>
     </div>
   );
