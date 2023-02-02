@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import Nav from '../components/Nav';
 import { CLIENT_DOMAIN } from '../constances/domain';
+import { APP } from '../constances/routes';
 import { signup } from '../services/user';
 import { TSignupForm } from '../types/user';
 
@@ -13,6 +14,7 @@ export default function Signup() {
     formState: { errors: formErrors },
     handleSubmit,
   } = useForm<TSignupForm>();
+  const navigate = useNavigate();
 
   const onValid: SubmitHandler<TSignupForm> = async ({
     name,
@@ -22,6 +24,7 @@ export default function Signup() {
   }: TSignupForm) => {
     try {
       await signup({ name, username, email, password, callbackUrl });
+      navigate(APP.LOGIN);
     } catch (error) {}
   };
 
