@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DOLJABEE_DOMAIN } from '../constances/domain';
+import { SERVER_DOMAIN } from '../constances/domain';
 import {
   TDeleteFeedMutation,
   TFeed,
@@ -9,7 +9,7 @@ import {
 } from '../types/feed';
 
 const axiosInstance = axios.create({
-  baseURL: DOLJABEE_DOMAIN,
+  baseURL: SERVER_DOMAIN,
 });
 
 export const getFeeds = () => axiosInstance.get<TFeed[]>('/feed');
