@@ -7,6 +7,7 @@ export const FEED = {
 export const APP = {
   HOME: '/',
   SIGNUP: '/signup',
+  AUTH: '/user/finish',
   LOGIN: '/login',
   ERROR: '/error',
   FEED,

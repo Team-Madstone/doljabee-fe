@@ -9,6 +9,7 @@ import Error from './pages/Error';
 import EditFeed from './pages/EditFeed';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Auth from './pages/Auth';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path={FEED.UPLOAD} element={<UploadFeed />}></Route>
         <Route path={FEED.EDIT} element={<EditFeed />}></Route>
         <Route path={APP.SIGNUP} element={<Signup />}></Route>
+        <Route path={APP.AUTH} element={<Auth />}></Route>
         <Route path={APP.LOGIN} element={<Login />}></Route>
         <Route path={APP.ERROR} element={<Error />}></Route>
       </Routes>
