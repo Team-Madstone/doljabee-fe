@@ -1,9 +1,12 @@
+import { AxiosError } from 'axios';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import Nav from '../components/Nav';
 import { CLIENT_DOMAIN } from '../constances/domain';
 import { APP } from '../constances/routes';
 import { signup } from '../services/user';
+import { TReqError } from '../types/error';
 import { TSignupForm } from '../types/user';
 
 const callbackUrl = `${CLIENT_DOMAIN}/user/finish`;
@@ -15,6 +18,10 @@ export default function Signup() {
     handleSubmit,
   } = useForm<TSignupForm>();
   const navigate = useNavigate();
+  const [nameErr, setNameErr] = useState<TReqError>();
+  const [emailErr, setEmailErr] = useState<TReqError>();
+  const [usernameErr, setUsernameErr] = useState<TReqError>();
+  const [passwordErr, setPasswordErr] = useState<TReqError>();
 
   const onValid: SubmitHandler<TSignupForm> = async ({
     name,
@@ -25,7 +32,17 @@ export default function Signup() {
     try {
       await signup({ name, username, email, password, callbackUrl });
       navigate(APP.LOGIN);
-    } catch (error) {}
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errors: TReqError[] = error.response?.data?.errors;
+        if (errors && errors instanceof Array) {
+          setNameErr(errors.find((err) => err.param === 'name'));
+          setUsernameErr(errors.find((err) => err.param === 'username'));
+          setEmailErr(errors.find((err) => err.param === 'email'));
+          setPasswordErr(errors.find((err) => err.param === 'password'));
+        }
+      }
+    }
   };
 
   return (
@@ -54,6 +71,7 @@ export default function Signup() {
             <p className="error">{formErrors.name?.message}</p>
           )}
         </div>
+        {nameErr && <p>{nameErr.msg}</p>}
         <div>
           <label htmlFor="username">Username</label>
           <input
@@ -75,6 +93,7 @@ export default function Signup() {
             <p className="error">{formErrors.username?.message}</p>
           )}
         </div>
+        {usernameErr && <p>{usernameErr.msg}</p>}
         <div>
           <label htmlFor="email">Email</label>
           <input
@@ -93,6 +112,7 @@ export default function Signup() {
             <p className="error">{formErrors.email?.message}</p>
           )}
         </div>
+        {emailErr && <p>{emailErr.msg}</p>}
         <div>
           <label htmlFor="password">Password</label>
           <input
@@ -114,6 +134,7 @@ export default function Signup() {
             <p className="error">{formErrors.password?.message}</p>
           )}
         </div>
+        {passwordErr && <p>{passwordErr.msg}</p>}
         <button type="submit">가입하기</button>
       </form>
     </div>
