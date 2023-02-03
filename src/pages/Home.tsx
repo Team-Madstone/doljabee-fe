@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Feed from '../components/Feed';
 import Loading from '../components/Loading';
 import Nav from '../components/Nav';

@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { CLIENT_DOMAIN } from '../constances/domain';
 import { APP } from '../constances/routes';
