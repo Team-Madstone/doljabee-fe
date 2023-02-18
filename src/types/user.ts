@@ -8,3 +8,23 @@ export type TSignupForm = {
 export type TSignupMutation = TSignupForm & {
   callbackUrl: string;
 };
+
+export type TUser = {
+  name: string;
+  email: string;
+  username: string;
+  verifyEmail: boolean;
+};
+
+export type TSignToken = {
+  token: string;
+};
+
+export type TLoginForm = {
+  email: string;
+  password: string;
+};
+
+export type TAccessAuth = {
+  accessToken: string;
+};
