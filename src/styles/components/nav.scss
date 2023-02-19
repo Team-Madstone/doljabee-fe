@@ -1,7 +1,54 @@
 .nav {
   display: flex;
+  justify-content: space-between;
   padding: 10px;
   .navMenu {
     padding: 10px;
+  }
+  .myBtn {
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    cursor: pointer;
+  }
+}
+
+.menuWrapper {
+  position: relative;
+  .menu {
+    background-color: white;
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    min-width: 100px;
+    border: 1px solid lightgray;
+    margin: 10px 0;
+    padding: 3px 0;
+    border-radius: 4px;
+    a {
+      display: block;
+      padding: 9px 18px;
+      font-size: 14px;
+      &:hover {
+        background-color: #eee;
+      }
+    }
+    button {
+      display: block;
+      background-color: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 9px 18px;
+      &:hover {
+        width: 100%;
+        text-align: left;
+        background-color: #eee;
+      }
+    }
   }
 }
