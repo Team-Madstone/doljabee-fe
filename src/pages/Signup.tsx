@@ -1,27 +1,37 @@
-import { AxiosError } from 'axios';
-import { useState } from 'react';
+import { isAxiosError } from 'axios';
+import { useContext, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { CLIENT_DOMAIN } from '../constances/domain';
 import { APP } from '../constances/routes';
+import { UserContext } from '../context/UserContext';
 import { signup } from '../services/user';
-import { TReqError } from '../types/error';
 import { TSignupForm } from '../types/user';
 
 const callbackUrl = `${CLIENT_DOMAIN}/user/finish`;
 
 export default function Signup() {
+  const { user, isLoading: userLoading } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors: formErrors },
     handleSubmit,
   } = useForm<TSignupForm>();
-  const navigate = useNavigate();
-  const [nameErr, setNameErr] = useState<TReqError>();
-  const [emailErr, setEmailErr] = useState<TReqError>();
-  const [usernameErr, setUsernameErr] = useState<TReqError>();
-  const [passwordErr, setPasswordErr] = useState<TReqError>();
+
+  const {
+    mutate: signupMutation,
+    isLoading,
+    isError,
+    error,
+  } = useMutation(signup, {
+    onSuccess: () => {
+      navigate(APP.NOTICE);
+    },
+  });
 
   const onValid: SubmitHandler<TSignupForm> = async ({
     name,
@@ -29,21 +39,14 @@ export default function Signup() {
     username,
     password,
   }: TSignupForm) => {
-    try {
-      await signup({ name, username, email, password, callbackUrl });
-      navigate(APP.LOGIN);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        const errors: TReqError[] = error.response?.data?.errors;
-        if (errors && errors instanceof Array) {
-          setNameErr(errors.find((err) => err.param === 'name'));
-          setUsernameErr(errors.find((err) => err.param === 'username'));
-          setEmailErr(errors.find((err) => err.param === 'email'));
-          setPasswordErr(errors.find((err) => err.param === 'password'));
-        }
-      }
-    }
+    signupMutation({ name, username, email, password, callbackUrl });
   };
+
+  useEffect(() => {
+    if (user && !userLoading) {
+      navigate(APP.HOME);
+    }
+  }, [user, userLoading, navigate]);
 
   return (
     <div>
@@ -71,7 +74,6 @@ export default function Signup() {
             <p className="error">{formErrors.name?.message}</p>
           )}
         </div>
-        {nameErr && <p>{nameErr.msg}</p>}
         <div>
           <label htmlFor="username">Username</label>
           <input
@@ -93,7 +95,6 @@ export default function Signup() {
             <p className="error">{formErrors.username?.message}</p>
           )}
         </div>
-        {usernameErr && <p>{usernameErr.msg}</p>}
         <div>
           <label htmlFor="email">Email</label>
           <input
@@ -112,7 +113,6 @@ export default function Signup() {
             <p className="error">{formErrors.email?.message}</p>
           )}
         </div>
-        {emailErr && <p>{emailErr.msg}</p>}
         <div>
           <label htmlFor="password">Password</label>
           <input
@@ -134,8 +134,12 @@ export default function Signup() {
             <p className="error">{formErrors.password?.message}</p>
           )}
         </div>
-        {passwordErr && <p>{passwordErr.msg}</p>}
-        <button type="submit">가입하기</button>
+        {isError && isAxiosError(error) && (
+          <p>{error.response?.data.errors[0].msg}</p>
+        )}
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? '가입 중' : '가입하기'}
+        </button>
       </form>
     </div>
   );
