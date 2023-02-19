@@ -35,3 +35,7 @@ export const onLoginSuccess = (response: AxiosResponse) => {
   const accessToken = response.data.accessToken;
   axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
 };
+
+export const onLogoutSuccess = () => {
+  axiosInstance.defaults.headers.Authorization = '';
+};

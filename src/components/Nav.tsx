@@ -1,11 +1,28 @@
 import { useContext, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
+import { logoutUser } from '../services/user';
+import { onLogoutSuccess } from '../utils/axios';
 
 export default function Nav() {
-  const { user } = useContext(UserContext);
+  const { user, removeUser } = useContext(UserContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const { mutate: logoutMutation } = useMutation(logoutUser, {
+    onSuccess: () => {
+      onLogoutSuccess();
+      removeUser();
+      navigate(APP.HOME);
+    },
+  });
+
+  const logout = () => {
+    logoutMutation();
+  };
 
   return (
     <div>
@@ -27,7 +44,9 @@ export default function Nav() {
                 <div className="menu">
                   <Link to="/my-profile">내 프로필</Link>
                   <Link to="/upload">업로드</Link>
-                  <button type="button">로그아웃</button>
+                  <button type="button" onClick={logout}>
+                    로그아웃
+                  </button>
                 </div>
               </div>
             )}

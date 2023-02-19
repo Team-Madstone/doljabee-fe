@@ -34,3 +34,7 @@ export const refreshAccessToken = () => {
 export const loginUser = async (data: TLoginForm) => {
   return axiosInstance.post<TLoginForm>('/user/login', data);
 };
+
+export const logoutUser = () => {
+  return axiosInstance.post('/user/logout');
+};
