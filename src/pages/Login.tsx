@@ -1,30 +1,56 @@
+import { isAxiosError } from 'axios';
+import { useContext, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 import Nav from '../components/Nav';
 import { APP } from '../constances/routes';
-import { login } from '../services/user';
+import { UserContext } from '../context/UserContext';
+import { loginUser } from '../services/user';
 import { TLoginForm } from '../types/user';
+import { onLoginSuccess } from '../utils/axios';
 
 export default function Login() {
+  const { getUser } = useContext(UserContext);
+  const { user, isLoading: userLoading } = useContext(UserContext);
   const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<TLoginForm>();
 
-  const onValid: SubmitHandler<TLoginForm> = async ({
+  const {
+    mutate: loginMutation,
+    isLoading,
+    isError,
+    error,
+  } = useMutation(loginUser, {
+    onSuccess: (data) => {
+      onLoginSuccess(data);
+      getUser();
+      navigate(APP.HOME);
+    },
+  });
+
+  const onValid: SubmitHandler<TLoginForm> = ({
     email,
     password,
   }: TLoginForm) => {
-    try {
-      await login({ email, password });
-      navigate(APP.HOME);
-    } catch (error) {
-      console.log(error);
-    }
+    loginMutation({ email, password });
   };
+
+  useEffect(() => {
+    if (user && !userLoading) {
+      navigate(APP.HOME);
+    }
+  }, [user, userLoading, navigate]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -68,6 +94,9 @@ export default function Login() {
             <p className="error">{errors.password?.message}</p>
           )}
         </div>
+        {isError && isAxiosError(error) && (
+          <p>{error.response?.data.message}</p>
+        )}
         <div>
           <button type="submit">로그인</button>
         </div>
