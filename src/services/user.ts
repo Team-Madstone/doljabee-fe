@@ -30,3 +30,7 @@ export const refreshAccessToken = () => {
     { withCredentials: true }
   );
 };
+
+export const loginUser = async (data: TLoginForm) => {
+  return axiosInstance.post<TLoginForm>('/user/login', data);
+};

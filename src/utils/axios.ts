@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { SERVER_DOMAIN } from '../constances/domain';
 import { refreshAccessToken } from '../services/user';
 
@@ -30,3 +30,8 @@ axiosInstance.interceptors.response.use(
     }
   }
 );
+
+export const onLoginSuccess = (response: AxiosResponse) => {
+  const accessToken = response.data.accessToken;
+  axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
+};
