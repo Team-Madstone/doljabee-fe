@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { APP } from '../constances/routes';
 import qs from 'qs';
-import { signToken } from '../services/user';
+import { verifyEmail } from '../services/user';
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -15,7 +15,7 @@ export default function Auth() {
     const verifyToken = async () => {
       try {
         if (query.token) {
-          await signToken(query.token as string);
+          await verifyEmail(query.token as string);
         }
       } catch (error) {
         if (error instanceof AxiosError) {

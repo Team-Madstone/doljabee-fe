@@ -1,17 +1,12 @@
-import axios from 'axios';
-import { SERVER_DOMAIN } from '../constances/domain';
 import { TSignToken, TSignupMutation, TUser } from '../types/user';
-
-const axiosInstance = axios.create({
-  baseURL: SERVER_DOMAIN,
-});
+import { axiosInstance } from '../utils/axios';
 
 export const signup = (data: TSignupMutation) => {
   return axiosInstance.post<TSignupMutation>('/user', data);
 };
 
-export const signToken = (token: string) => {
-  return axiosInstance.get<TSignToken>('/user/signToken', {
+export const verifyEmail = (token: string) => {
+  return axiosInstance.get<TSignToken>('/user/verify-email', {
     params: { token },
   });
 };
