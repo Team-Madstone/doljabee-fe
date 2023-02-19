@@ -1,4 +1,12 @@
-import { TSignToken, TSignupMutation, TUser } from '../types/user';
+import axios from 'axios';
+import { SERVER_DOMAIN } from '../constances/domain';
+import {
+  TAccessAuth,
+  TLoginForm,
+  TSignToken,
+  TSignupMutation,
+  TUser,
+} from '../types/user';
 import { axiosInstance } from '../utils/axios';
 
 export const signup = (data: TSignupMutation) => {
@@ -13,4 +21,12 @@ export const verifyEmail = (token: string) => {
 
 export const getMyProfile = () => {
   return axiosInstance.get<TUser>('/user/get-my-profile');
+};
+
+export const refreshAccessToken = () => {
+  return axios.post<TAccessAuth>(
+    `${SERVER_DOMAIN}/user/refresh-access-token`,
+    {},
+    { withCredentials: true }
+  );
 };
