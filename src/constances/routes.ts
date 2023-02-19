@@ -1,5 +1,5 @@
 export const FEED = {
-  FEED: '/:id',
+  FEED: '/feed/:id',
   UPLOAD: '/upload',
   EDIT: '/:id/edit',
 };

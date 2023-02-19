@@ -9,7 +9,7 @@ export default function Feed({ feed }: TProps) {
   return (
     <div>
       {feed && (
-        <Link to={`/${feed._id}`} key={feed._id}>
+        <Link to={`/feed/${feed._id}`} key={feed._id}>
           <div className="feedContainer">
             <span>{feed.createdAt}</span>
             <h3>{feed.title}</h3>
