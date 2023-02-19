@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { SERVER_DOMAIN } from '../constances/domain';
 import {
   TDeleteFeedMutation,
   TFeed,
@@ -7,10 +5,7 @@ import {
   TUpdateFeedMutation,
   TUploadFeedMutation,
 } from '../types/feed';
-
-const axiosInstance = axios.create({
-  baseURL: SERVER_DOMAIN,
-});
+import { axiosInstance } from '../utils/axios';
 
 export const getFeeds = () => axiosInstance.get<TFeed[]>('/feed');
 
