@@ -11,5 +11,6 @@ export const APP = {
   AUTH: '/user/finish',
   LOGIN: '/login',
   ERROR: '/error',
+  MYPROFILE: '/my-profile',
   FEED,
 };

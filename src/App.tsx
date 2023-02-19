@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import Notice from './pages/Notice';
+import MyProfile from './pages/MyProfile';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path={APP.NOTICE} element={<Notice />}></Route>
         <Route path={APP.AUTH} element={<Auth />}></Route>
         <Route path={APP.LOGIN} element={<Login />}></Route>
+        <Route path={APP.MYPROFILE} element={<MyProfile />}></Route>
         <Route path={'*'} element={<NotFound />}></Route>
       </Routes>
     </div>
