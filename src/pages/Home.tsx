@@ -1,45 +1,30 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { isAxiosError } from 'axios';
+import { useQuery } from 'react-query';
 import Feed from '../components/Feed';
 import Loading from '../components/Loading';
 import Nav from '../components/Nav';
-import { APP } from '../constances/routes';
 import { getFeeds } from '../services/feed';
 import { TFeed } from '../types/feed';
-import { getErrorState } from '../utils/error';
+import NotFound from './NotFound';
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const [feeds, setFeeds] = useState<TFeed[]>([]);
-  const navigate = useNavigate();
+  const { isLoading, isError, data, error } = useQuery('getFeeds', getFeeds);
 
-  useEffect(() => {
-    const syncGetFeeds = async () => {
-      setLoading(true);
-      try {
-        const response = await getFeeds();
-        setFeeds(response.data);
-      } catch (error) {
-        const state = getErrorState(error);
-        navigate(APP.ERROR, { state });
-      } finally {
-        setLoading(false);
-      }
-    };
-    syncGetFeeds();
-  }, []);
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError && isAxiosError(error)) {
+    return <NotFound />;
+  }
 
   return (
     <div>
       <Nav />
-      {loading ? (
-        <Loading />
-      ) : (
-        <div>
-          {feeds &&
-            feeds.map((feed: TFeed) => <Feed key={feed._id} feed={feed} />)}
-        </div>
-      )}
+      <div>
+        {data &&
+          data.data.map((feed: TFeed) => <Feed key={feed._id} feed={feed} />)}
+      </div>
     </div>
   );
 }
