@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
       const result = await refreshAccessToken();
       const newAccessToken = result.data.accessToken;
 
-      error.config.headers.Authorization = `Bearer ${newAccessToken}`;
+      axiosInstance.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
       error.config.retry = true;
 
       return axiosInstance.request(error.config);

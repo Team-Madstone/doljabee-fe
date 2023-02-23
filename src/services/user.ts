@@ -19,9 +19,7 @@ export const signup = (data: TSignupMutation) => {
 };
 
 export const verifyEmail = (token: string) => {
-  return axiosInstance.get<TSignToken>('/user/verify-email', {
-    params: { token },
-  });
+  return axiosInstance.post<TSignToken>('/user/verify-email', { token });
 };
 
 export const getMyProfile = () => {
