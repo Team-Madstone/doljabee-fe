@@ -34,3 +34,7 @@ export type TChangePassword = {
   newPassword: string;
   newPasswordConfirmation: string;
 };
+
+export type TChangeUsername = {
+  username: string;
+};
