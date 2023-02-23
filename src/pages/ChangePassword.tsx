@@ -1,5 +1,7 @@
+import { isAxiosError } from 'axios';
 import { useContext, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 import Loading from '../components/Loading';
 import Nav from '../components/Nav';
@@ -18,12 +20,28 @@ export default function ChangePassword() {
     handleSubmit,
   } = useForm<TChangePassword>();
 
+  const {
+    mutate: changePasswordMutation,
+    isLoading,
+    isError,
+    error,
+  } = useMutation(changePassword, {
+    onSuccess: () => {
+      alert('비밀번호가 변경되었습니다.');
+      navigate(APP.MYPROFILE);
+    },
+  });
+
   const onValid: SubmitHandler<TChangePassword> = ({
     oldPassword,
     newPassword,
     newPasswordConfirmation,
   }) => {
-    changePassword({ oldPassword, newPassword, newPasswordConfirmation });
+    changePasswordMutation({
+      oldPassword,
+      newPassword,
+      newPasswordConfirmation,
+    });
   };
 
   const handleGoBack = () => {
@@ -111,8 +129,13 @@ export default function ChangePassword() {
             </p>
           )}
         </div>
+        {isError && isAxiosError(error) && (
+          <p>{error.response?.data.message}</p>
+        )}
         <button onClick={handleGoBack}>취소</button>
-        <button type="submit">변경하기</button>
+        <button disabled={isLoading} type="submit">
+          {isLoading ? '변경중' : '변경하기'}
+        </button>
       </form>
     </div>
   );
