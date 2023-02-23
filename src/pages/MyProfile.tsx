@@ -37,7 +37,12 @@ export default function MyProfile() {
             이메일 인증 여부:{' '}
             {data.data.verifyEmail ? '인증 완료' : '인증되지 않음'}
           </p>
-          <button>닉네임 수정</button>
+          <Link
+            to={APP.CHANGEUSERNAME}
+            state={{ username: data.data.username }}
+          >
+            <button>닉네임 수정</button>
+          </Link>
           <Link to={APP.CHANGEPASSWORD}>
             <button>비밀번호 변경</button>
           </Link>
