@@ -4,6 +4,7 @@ import {
   TAccessAuth,
   TChangePassword,
   TChangeUsername,
+  TForgotPassword,
   TLoginForm,
   TResendVerifyEmail,
   TSignToken,
@@ -53,6 +54,13 @@ export const changeUsername = (data: TChangeUsername) => {
 export const resendVerifyEmail = (data: TResendVerifyEmail) => {
   return axiosInstance.post<TResendVerifyEmail>(
     '/user/resend-verify-email',
+    data
+  );
+};
+
+export const forgotPassword = async (data: TForgotPassword) => {
+  return await axiosInstance.post<TForgotPassword>(
+    '/user/forgot-password',
     data
   );
 };
