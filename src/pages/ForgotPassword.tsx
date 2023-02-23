@@ -1,4 +1,5 @@
-import { useContext, useEffect } from 'react';
+import { isAxiosError } from 'axios';
+import { useContext, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import Nav from '../components/Nav';
@@ -19,10 +20,26 @@ export default function ForgotPassword() {
     handleSubmit,
   } = useForm<TForgotPassword>();
 
+  const [error, setError] = useState('');
+
+  const forgotPasswordQuery = async ({
+    email,
+    callbackUrl,
+  }: TForgotPassword) => {
+    try {
+      await forgotPassword({ email, callbackUrl });
+      navigate(APP.FORGOTPASSWORDNOTICE);
+    } catch (error) {
+      if (error && isAxiosError(error)) {
+        setError(error.response?.data.message);
+      }
+    }
+  };
+
   const onValid: SubmitHandler<TForgotPassword> = async ({
     email,
   }: TForgotPassword) => {
-    await forgotPassword({ email, callbackUrl });
+    await forgotPasswordQuery({ email, callbackUrl });
   };
 
   useEffect(() => {
@@ -59,6 +76,7 @@ export default function ForgotPassword() {
             <p className="error">{formErrors.email?.message}</p>
           )}
         </div>
+        {error && <p>{error}</p>}
         <button type="submit">확인</button>
       </form>
     </div>
