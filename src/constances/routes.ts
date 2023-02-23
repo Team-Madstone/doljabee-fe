@@ -15,5 +15,6 @@ export const APP = {
   CHANGEPASSWORD: '/change-password',
   CHANGEUSERNAME: '/change-username',
   FORGOTPASSWORD: '/forgot-password',
+  FORGOTPASSWORDNOTICE: '/forgot-password-notice',
   FEED,
 };

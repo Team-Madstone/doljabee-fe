@@ -15,6 +15,7 @@ import MyProfile from './pages/MyProfile';
 import ChangePassword from './pages/ChangePassword';
 import ChangeUsername from './pages/ChangeUsername';
 import ForgotPassword from './pages/ForgotPassword';
+import ForgotPasswordNotice from './pages/ForgotPasswordNotice';
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
         <Route path={APP.CHANGEPASSWORD} element={<ChangePassword />}></Route>
         <Route path={APP.CHANGEUSERNAME} element={<ChangeUsername />}></Route>
         <Route path={APP.FORGOTPASSWORD} element={<ForgotPassword />}></Route>
+        <Route
+          path={APP.FORGOTPASSWORDNOTICE}
+          element={<ForgotPasswordNotice />}
+        ></Route>
         <Route path={'*'} element={<NotFound />}></Route>
       </Routes>
     </div>
