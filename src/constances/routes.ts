@@ -12,5 +12,6 @@ export const APP = {
   LOGIN: '/login',
   ERROR: '/error',
   MYPROFILE: '/my-profile',
+  CHANGEPASSWORD: '/change-password',
   FEED,
 };

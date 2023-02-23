@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Nav from '../components/Nav';
 import { APP } from '../constances/routes';
@@ -37,7 +38,9 @@ export default function MyProfile() {
             {data.data.verifyEmail ? '인증 완료' : '인증되지 않음'}
           </p>
           <button>닉네임 수정</button>
-          <button>비밀번호 변경</button>
+          <Link to={APP.CHANGEPASSWORD}>
+            <button>비밀번호 변경</button>
+          </Link>
           <button>인증 메일 재전송</button>
         </div>
       )}
