@@ -42,3 +42,8 @@ export type TChangeUsername = {
 export type TResendVerifyEmail = {
   callbackUrl: string;
 };
+
+export type TForgotPassword = {
+  email: string;
+  callbackUrl: string;
+};
