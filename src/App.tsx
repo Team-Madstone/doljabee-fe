@@ -14,6 +14,7 @@ import Notice from './pages/Notice';
 import MyProfile from './pages/MyProfile';
 import ChangePassword from './pages/ChangePassword';
 import ChangeUsername from './pages/ChangeUsername';
+import ForgotPassword from './pages/ForgotPassword';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path={APP.MYPROFILE} element={<MyProfile />}></Route>
         <Route path={APP.CHANGEPASSWORD} element={<ChangePassword />}></Route>
         <Route path={APP.CHANGEUSERNAME} element={<ChangeUsername />}></Route>
+        <Route path={APP.FORGOTPASSWORD} element={<ForgotPassword />}></Route>
         <Route path={'*'} element={<NotFound />}></Route>
       </Routes>
     </div>

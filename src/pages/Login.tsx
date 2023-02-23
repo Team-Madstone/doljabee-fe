@@ -105,6 +105,11 @@ export default function Login() {
             <button>회원가입</button>
           </Link>
         </div>
+        <div>
+          <Link to={APP.FORGOTPASSWORD}>
+            <button>비밀번호 찾기</button>
+          </Link>
+        </div>
       </form>
     </div>
   );
