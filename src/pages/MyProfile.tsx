@@ -1,18 +1,30 @@
 import { useContext, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Nav from '../components/Nav';
+import { CLIENT_DOMAIN } from '../constances/domain';
 import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
-import { getMyProfile } from '../services/user';
+import { getMyProfile, resendVerifyEmail } from '../services/user';
+
+const callbackUrl = `${CLIENT_DOMAIN}/user/finish`;
 
 export default function MyProfile() {
   const { user, isLoading: userLoading } = useContext(UserContext);
   const { data, isLoading } = useQuery('myProfile', getMyProfile);
 
   const navigate = useNavigate();
+
+  const { mutate: resendVerifyEmailMutation } = useMutation(resendVerifyEmail, {
+    onSuccess: () => {
+      alert('이메일 전송을 완료했습니다.');
+    },
+    onError: () => {
+      alert('이메일 전송을 실패했습니다.');
+    },
+  });
 
   useEffect(() => {
     if (!userLoading && !user) {
@@ -24,6 +36,10 @@ export default function MyProfile() {
   if (isLoading || userLoading) {
     return <Loading />;
   }
+
+  const handleResendVerifyEmail = () => {
+    resendVerifyEmailMutation({ callbackUrl });
+  };
 
   return (
     <div>
@@ -46,7 +62,9 @@ export default function MyProfile() {
           <Link to={APP.CHANGEPASSWORD}>
             <button>비밀번호 변경</button>
           </Link>
-          <button>인증 메일 재전송</button>
+          {!data.data.verifyEmail && (
+            <button onClick={handleResendVerifyEmail}>인증 메일 재전송</button>
+          )}
         </div>
       )}
     </div>
