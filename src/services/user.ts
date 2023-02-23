@@ -5,6 +5,7 @@ import {
   TChangePassword,
   TChangeUsername,
   TLoginForm,
+  TResendVerifyEmail,
   TSignToken,
   TSignupMutation,
   TUser,
@@ -47,4 +48,11 @@ export const changePassword = (data: TChangePassword) => {
 
 export const changeUsername = (data: TChangeUsername) => {
   return axiosInstance.post<TChangeUsername>('/user/change-username', data);
+};
+
+export const resendVerifyEmail = (data: TResendVerifyEmail) => {
+  return axiosInstance.post<TResendVerifyEmail>(
+    '/user/resend-verify-email',
+    data
+  );
 };
