@@ -28,3 +28,9 @@ export type TLoginForm = {
 export type TAccessAuth = {
   accessToken: string;
 };
+
+export type TChangePassword = {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
+};
