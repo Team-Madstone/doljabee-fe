@@ -1,5 +1,7 @@
+import { isAxiosError } from 'axios';
 import { useContext, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { useLocation, useNavigate } from 'react-router';
 import Nav from '../components/Nav';
 import { APP } from '../constances/routes';
@@ -20,8 +22,20 @@ export default function ChangeUsername() {
 
   const navigate = useNavigate();
 
+  const {
+    mutate: changeUsernameMutation,
+    isLoading,
+    isError,
+    error,
+  } = useMutation(changeUsername, {
+    onSuccess: () => {
+      alert('닉네임이 변경되었습니다.');
+      navigate(APP.MYPROFILE);
+    },
+  });
+
   const onValid: SubmitHandler<TChangeUsername> = async ({ username }) => {
-    changeUsername({ username });
+    changeUsernameMutation({ username });
   };
 
   const handleGoBack = () => {
@@ -65,8 +79,13 @@ export default function ChangeUsername() {
             <p className="error">{formErrors.username?.message}</p>
           )}
         </div>
+        {isError && isAxiosError(error) && (
+          <p>{error.response?.data.message}</p>
+        )}
         <button onClick={handleGoBack}>취소</button>
-        <button type="submit">변경하기</button>
+        <button disabled={isLoading} type="submit">
+          {isLoading ? '변경중' : '변경하기'}
+        </button>
       </form>
     </div>
   );
