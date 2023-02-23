@@ -7,6 +7,7 @@ import {
   TForgotPassword,
   TLoginForm,
   TResendVerifyEmail,
+  TResetPassword,
   TSignToken,
   TSignupMutation,
   TUser,
@@ -63,4 +64,8 @@ export const forgotPassword = async (data: TForgotPassword) => {
     '/user/forgot-password',
     data
   );
+};
+
+export const resetPassword = (data: TResetPassword) => {
+  return axiosInstance.post<TResetPassword>('/user/reset-password', data);
 };
