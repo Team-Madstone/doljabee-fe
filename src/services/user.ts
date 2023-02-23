@@ -3,6 +3,7 @@ import { SERVER_DOMAIN } from '../constances/domain';
 import {
   TAccessAuth,
   TChangePassword,
+  TChangeUsername,
   TLoginForm,
   TSignToken,
   TSignupMutation,
@@ -42,4 +43,8 @@ export const logoutUser = () => {
 
 export const changePassword = (data: TChangePassword) => {
   return axiosInstance.post<TChangePassword>('/user/change-password', data);
+};
+
+export const changeUsername = (data: TChangeUsername) => {
+  return axiosInstance.post<TChangeUsername>('/user/change-username', data);
 };
