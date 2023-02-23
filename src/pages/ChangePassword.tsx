@@ -1,17 +1,22 @@
+import { useContext, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import Loading from '../components/Loading';
 import Nav from '../components/Nav';
+import { APP } from '../constances/routes';
+import { UserContext } from '../context/UserContext';
 import { changePassword } from '../services/user';
 import { TChangePassword } from '../types/user';
 
 export default function ChangePassword() {
+  const { user, isLoading: userLoading } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors: formErrors },
     handleSubmit,
   } = useForm<TChangePassword>();
-
-  const navigate = useNavigate();
 
   const onValid: SubmitHandler<TChangePassword> = ({
     oldPassword,
@@ -24,6 +29,17 @@ export default function ChangePassword() {
   const handleGoBack = () => {
     navigate(-1);
   };
+
+  useEffect(() => {
+    if (!userLoading && !user) {
+      alert('로그인 후 이용할 수 있습니다.');
+      navigate(APP.LOGIN);
+    }
+  }, [user, userLoading, navigate]);
+
+  if (userLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
