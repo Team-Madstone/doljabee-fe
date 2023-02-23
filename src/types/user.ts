@@ -47,3 +47,9 @@ export type TForgotPassword = {
   email: string;
   callbackUrl: string;
 };
+
+export type TResetPassword = {
+  email: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
+};
