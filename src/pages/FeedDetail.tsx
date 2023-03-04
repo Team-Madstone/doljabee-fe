@@ -107,9 +107,9 @@ export default function FeedDetail() {
           )}
           <div>
             <span>like {feed.likes ? feed.likes.length : 0} </span>
-            <span>comment</span>
+            <span>comment {feed.comments ? feed.comments.length : 0}</span>
           </div>
-          {user && !userLoading && (
+          {user && !userLoading && feed.owner === user?._id && (
             <div>
               <Link to={`/feed/${feed._id}/edit`}>
                 <button>수정하기</button>

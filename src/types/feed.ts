@@ -14,6 +14,7 @@ export type TFeed = {
   createdAt: string;
   likes: TLike[];
   comments: TComment[];
+  owner: string;
 };
 
 export type TFeedMutaionBase = {
