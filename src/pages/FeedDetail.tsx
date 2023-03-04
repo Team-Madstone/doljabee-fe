@@ -8,7 +8,7 @@ import { UserContext } from '../context/UserContext';
 import { deleteFeed, getFeed, toggleLikeFeed } from '../services/feed';
 import { TError } from '../types/feed';
 import NotFound from './NotFound';
-import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
+import { HiHeart, HiOutlineHeart, HiOutlineShare } from 'react-icons/hi';
 
 export default function FeedDetail() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -58,6 +58,11 @@ export default function FeedDetail() {
     setIsLiked(!isLiked);
   };
 
+  const handleShare = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    alert('링크를 복사했습니다.');
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -102,6 +107,9 @@ export default function FeedDetail() {
           <div>
             <button onClick={() => toggleLike()}>
               {isLiked ? <HiHeart size="25" /> : <HiOutlineHeart size="25" />}
+            </button>
+            <button onClick={() => handleShare()}>
+              <HiOutlineShare size="25" />
             </button>
           </div>
         </div>
