@@ -8,10 +8,13 @@ import {
 } from '../types/feed';
 import { axiosInstance } from '../utils/axios';
 
-export const getFeeds = () => axiosInstance.get<TFeed[]>('/feed');
+export const getFeeds = () => {
+  return axiosInstance.get<TFeed[]>('/feed');
+};
 
-export const getFeed = ({ _id }: TGetFeedMutation) =>
-  axiosInstance.get<TFeed>(`/feed/${_id}`);
+export const getFeed = ({ _id }: TGetFeedMutation) => {
+  return axiosInstance.get<TFeed>(`/feed/${_id}`);
+};
 
 export const uploadFeed = async ({
   title,
@@ -39,10 +42,11 @@ export const updateFeed = async ({
   return await axiosInstance.put(`/feed/${_id}`, formData);
 };
 
-export const deleteFeed = ({ _id }: TDeleteFeedMutation) =>
-  axiosInstance.delete(`/feed`, {
+export const deleteFeed = ({ _id }: TDeleteFeedMutation) => {
+  return axiosInstance.delete(`/feed`, {
     data: { _id },
   });
+};
 
 export const toggleLikeFeed = ({ _id }: TToggleLikeFeedMutation) => {
   return axiosInstance.post(`/feed/like`, {
