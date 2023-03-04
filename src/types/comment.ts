@@ -15,3 +15,8 @@ export type TComment = {
 export type TDeleteCommentForm = {
   _id: string;
 };
+
+export type TEditCommentForm = {
+  editComment: string;
+  chosenCommentId: string;
+};
