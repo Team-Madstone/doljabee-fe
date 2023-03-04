@@ -1,9 +1,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router';
 import { createComment } from '../services/comment';
-import { TCommentForm } from '../types/comment';
+import { getFeed } from '../services/feed';
+import { TComment, TCommentForm } from '../types/comment';
 import { TError } from '../types/feed';
+import Comment from './Comment';
 
 export default function CommentForm() {
   const queryClient = useQueryClient();
@@ -16,6 +18,8 @@ export default function CommentForm() {
     handleSubmit: createCommentHandleSubmit,
     setValue: createCommentSetValue,
   } = useForm<TCommentForm>();
+
+  const { data } = useQuery(['getFeed', _id], () => getFeed({ _id }));
 
   const { mutate: createCommentMutation } = useMutation(createComment, {
     onSuccess: () => {
@@ -49,6 +53,11 @@ export default function CommentForm() {
         )}
         <button type="submit">댓글 달기</button>
       </form>
+      <div>
+        {data?.data.comments.map((comment: TComment) => (
+          <Comment key={comment._id} comment={comment} />
+        ))}
+      </div>
     </div>
   );
 }

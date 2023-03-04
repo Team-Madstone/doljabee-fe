@@ -1,3 +1,5 @@
+import { TComment } from './comment';
+
 export type TLike = {
   feed: string;
   user: string;
@@ -11,6 +13,7 @@ export type TFeed = {
   photo?: string;
   createdAt: string;
   likes: TLike[];
+  comments: TComment[];
 };
 
 export type TFeedMutaionBase = {
