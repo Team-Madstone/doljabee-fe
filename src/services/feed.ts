@@ -2,6 +2,7 @@ import {
   TDeleteFeedMutation,
   TFeed,
   TGetFeedMutation,
+  TToggleLikeFeedMutation,
   TUpdateFeedMutation,
   TUploadFeedMutation,
 } from '../types/feed';
@@ -42,3 +43,9 @@ export const deleteFeed = ({ _id }: TDeleteFeedMutation) =>
   axiosInstance.delete(`/feed`, {
     data: { _id },
   });
+
+export const toggleLikeFeed = ({ _id }: TToggleLikeFeedMutation) => {
+  return axiosInstance.post(`/feed/like`, {
+    feedId: _id,
+  });
+};
