@@ -1,18 +1,22 @@
 import { isAxiosError } from 'axios';
 import { useContext, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Nav from '../components/Nav';
 import { UserContext } from '../context/UserContext';
-import { deleteFeed, getFeed } from '../services/feed';
+import { deleteFeed, getFeed, toggleLikeFeed } from '../services/feed';
+import { TError } from '../types/feed';
 import NotFound from './NotFound';
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 
 export default function FeedDetail() {
   const { user, isLoading: userLoading } = useContext(UserContext);
   const params = useParams();
   const _id = params.id as string;
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [isLiked, setIsLiked] = useState<boolean>();
 
   const { isLoading, isError, data, error } = useQuery(['getFeed', _id], () =>
     getFeed({ _id })
@@ -22,7 +26,11 @@ export default function FeedDetail() {
     if (!data) {
       return;
     }
-  }, [data]);
+
+    setIsLiked(
+      !!data.data.likes.find((item) => item.user && item.user === user?._id)
+    );
+  }, [data, user]);
 
   const handleDelete = async (_id: string) => {
     try {
@@ -31,6 +39,23 @@ export default function FeedDetail() {
     } catch (error: any) {
       alert(error.response.data.message);
     }
+  };
+
+  const { mutate: likeFeedMutation } = useMutation(toggleLikeFeed, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['getFeed', _id]);
+    },
+    onError: (error: TError) => {
+      if (error.response.status === 401) {
+        alert('로그인 후 이용해주세요.');
+      }
+      setIsLiked((prev) => !prev);
+    },
+  });
+
+  const toggleLike = () => {
+    likeFeedMutation({ _id });
+    setIsLiked(!isLiked);
   };
 
   if (isLoading) {
@@ -74,6 +99,11 @@ export default function FeedDetail() {
               <button onClick={() => handleDelete(feed._id)}>삭제하기</button>
             </div>
           )}
+          <div>
+            <button onClick={() => toggleLike()}>
+              {isLiked ? <HiHeart size="25" /> : <HiOutlineHeart size="25" />}
+            </button>
+          </div>
         </div>
       </div>
     </div>

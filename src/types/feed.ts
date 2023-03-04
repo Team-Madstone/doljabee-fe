@@ -1,10 +1,16 @@
+export type TLike = {
+  feed: string;
+  user: string;
+  _id: string;
+};
+
 export type TFeed = {
   _id: string;
   title: string;
   text: string;
   photo?: string;
-  createdAt?: string;
-  likes?: number;
+  createdAt: string;
+  likes: TLike[];
 };
 
 export type TFeedMutaionBase = {
@@ -13,6 +19,7 @@ export type TFeedMutaionBase = {
 
 export type TGetFeedMutation = TFeedMutaionBase;
 export type TDeleteFeedMutation = TFeedMutaionBase;
+export type TToggleLikeFeedMutation = TFeedMutaionBase;
 
 export type TUploadFeedMutation = {
   title: string;
@@ -26,4 +33,11 @@ export type TFormValue = {
   title: string;
   text: string;
   photoFile?: File[];
+};
+
+export type TError = {
+  response: {
+    status: number;
+    message: string;
+  };
 };

@@ -8,26 +8,24 @@ type TProps = {
 export default function Feed({ feed }: TProps) {
   return (
     <div>
-      {feed && (
-        <Link to={`/feed/${feed._id}`} key={feed._id}>
-          <div className="feedContainer">
-            <span>{feed.createdAt}</span>
-            <h3>{feed.title}</h3>
-            <p>{feed.text}</p>
-            {feed.photo && (
-              <img
-                src={`http://localhost:4000/${feed.photo}`}
-                style={{ width: '300px' }}
-                alt="img"
-              />
-            )}
-            <div>
-              <span>like {feed.likes} </span>
-              <span>comment</span>
-            </div>
+      <Link to={`/feed/${feed._id}`}>
+        <div className="feedContainer">
+          <span>{feed.createdAt}</span>
+          <h3>{feed.title}</h3>
+          <p>{feed.text}</p>
+          {feed.photo && (
+            <img
+              src={`http://localhost:4000/${feed.photo}`}
+              style={{ width: '300px' }}
+              alt="img"
+            />
+          )}
+          <div>
+            <span>like {feed.likes ? feed.likes.length : 0}</span>
+            <span>comment {feed.comments ? feed.comments.length : 0}</span>
           </div>
-        </Link>
-      )}
+        </div>
+      </Link>
     </div>
   );
 }

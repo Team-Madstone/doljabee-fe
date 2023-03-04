@@ -10,6 +10,7 @@ export type TSignupMutation = TSignupForm & {
 };
 
 export type TUser = {
+  _id: string;
   name: string;
   email: string;
   username: string;
