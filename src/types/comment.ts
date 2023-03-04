@@ -11,3 +11,7 @@ export type TComment = {
   user: string;
   username: string;
 };
+
+export type TDeleteCommentForm = {
+  _id: string;
+};
