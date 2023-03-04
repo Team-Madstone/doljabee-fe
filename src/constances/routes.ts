@@ -1,7 +1,7 @@
 export const FEED = {
   FEED: '/feed/:id',
   UPLOAD: '/upload',
-  EDIT: '/:id/edit',
+  EDIT: '/feed/:id/edit',
 };
 
 export const APP = {

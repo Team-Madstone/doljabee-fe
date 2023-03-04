@@ -31,7 +31,7 @@ export default function EditFeed() {
     isLoading: getFeedIsLoading,
     isError: getFeedIsError,
     error: getFeedError,
-  } = useQuery('getFeed', () => getFeed({ _id }), {
+  } = useQuery(['getFeed', _id], () => getFeed({ _id }), {
     onSuccess: (response) => {
       setValue('title', response.data.title);
       setValue('text', response.data.text);
@@ -46,9 +46,9 @@ export default function EditFeed() {
     error: updateFeedError,
     isLoading: updateFeedIsLoading,
   } = useMutation(updateFeed, {
-    onSuccess: () => {
+    onSuccess: (response) => {
       queryClient.invalidateQueries('getFeed');
-      navigate(APP.HOME);
+      navigate(`/feed/${response.data._id}`);
     },
   });
 
