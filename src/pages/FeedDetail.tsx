@@ -8,7 +8,12 @@ import { UserContext } from '../context/UserContext';
 import { deleteFeed, getFeed, toggleLikeFeed } from '../services/feed';
 import { TError } from '../types/feed';
 import NotFound from './NotFound';
-import { HiHeart, HiOutlineHeart, HiOutlineShare } from 'react-icons/hi';
+import {
+  HiChevronLeft,
+  HiHeart,
+  HiOutlineHeart,
+  HiOutlineShare,
+} from 'react-icons/hi';
 
 export default function FeedDetail() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -53,6 +58,10 @@ export default function FeedDetail() {
     },
   });
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   const toggleLike = () => {
     likeFeedMutation({ _id });
     setIsLiked(!isLiked);
@@ -82,6 +91,9 @@ export default function FeedDetail() {
       <Nav />
       <div>
         <div className="feedContainer">
+          <button onClick={handleGoBack}>
+            <HiChevronLeft size="28" />
+          </button>
           <span>{feed.createdAt}</span>
           <h3>{feed.title}</h3>
           <p>{feed.text}</p>
