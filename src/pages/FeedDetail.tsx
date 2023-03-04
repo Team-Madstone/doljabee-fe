@@ -110,7 +110,7 @@ export default function FeedDetail() {
           </div>
           {user && !userLoading && (
             <div>
-              <Link to={`/${feed._id}/edit`}>
+              <Link to={`/feed/${feed._id}/edit`}>
                 <button>수정하기</button>
               </Link>
               <button onClick={() => handleDelete(feed._id)}>삭제하기</button>
