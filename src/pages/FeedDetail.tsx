@@ -14,6 +14,7 @@ import {
   HiOutlineHeart,
   HiOutlineShare,
 } from 'react-icons/hi';
+import CommentForm from '../components/CommentForm';
 
 export default function FeedDetail() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -124,6 +125,7 @@ export default function FeedDetail() {
               <HiOutlineShare size="25" />
             </button>
           </div>
+          <CommentForm />
         </div>
       </div>
     </div>
