@@ -47,6 +47,7 @@ export default function UploadFeed() {
 
   useEffect(() => {
     if (!userLoading && !user) {
+      alert('로그인 후 이용할 수 있습니다.');
       navigate(APP.LOGIN);
     } else if (user && !user.verifyEmail) {
       alert('이메일 인증 후 이용할 수 있습니다.');

@@ -29,7 +29,7 @@ export default function MyProfile() {
   useEffect(() => {
     if (!userLoading && !user) {
       alert('로그인 후 이용할 수 있습니다.');
-      navigate(APP.HOME);
+      navigate(APP.LOGIN);
     }
   }, [user, userLoading, navigate]);
 
