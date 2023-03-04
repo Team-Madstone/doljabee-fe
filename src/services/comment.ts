@@ -1,4 +1,4 @@
-import { TCommentForm } from '../types/comment';
+import { TCommentForm, TDeleteCommentForm } from '../types/comment';
 import { axiosInstance } from '../utils/axios';
 
 export const createComment = ({ _id, text }: TCommentForm) => {
@@ -6,4 +6,8 @@ export const createComment = ({ _id, text }: TCommentForm) => {
     feedId: _id,
     text,
   });
+};
+
+export const deleteComment = ({ _id }: TDeleteCommentForm) => {
+  return axiosInstance.delete(`/comment`, { data: { _id } });
 };
