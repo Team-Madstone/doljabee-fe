@@ -11,6 +11,7 @@ export default function Feed({ feed }: TProps) {
       <Link to={`/feed/${feed._id}`}>
         <div className="feedContainer">
           <span>{feed.createdAt}</span>
+          <p>{feed.owner.username}</p>
           <h3>{feed.title}</h3>
           <p>{feed.text}</p>
           {feed.photo && (
