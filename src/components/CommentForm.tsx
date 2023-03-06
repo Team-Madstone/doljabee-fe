@@ -7,7 +7,11 @@ import { TComment, TCommentForm } from '../types/comment';
 import { TError } from '../types/feed';
 import Comment from './Comment';
 
-export default function CommentForm() {
+type TProps = {
+  comments: TComment[];
+};
+
+export default function CommentForm({ comments }: TProps) {
   const queryClient = useQueryClient();
   const params = useParams();
   const _id = params.id as string;

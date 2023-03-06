@@ -125,7 +125,7 @@ export default function FeedDetail() {
               <HiOutlineShare size="25" />
             </button>
           </div>
-          <CommentForm />
+          <CommentForm comments={feed.comments} />
         </div>
       </div>
     </div>
