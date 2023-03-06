@@ -6,6 +6,15 @@ export type TLike = {
   _id: string;
 };
 
+export type TOwner = {
+  _id: string;
+  email: string;
+  name: string;
+  password: string;
+  username: string;
+  verifyEmail: boolean;
+};
+
 export type TFeed = {
   _id: string;
   title: string;
@@ -14,7 +23,7 @@ export type TFeed = {
   createdAt: string;
   likes: TLike[];
   comments: TComment[];
-  owner: string;
+  owner: TOwner;
 };
 
 export type TFeedMutaionBase = {

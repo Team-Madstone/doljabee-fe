@@ -97,6 +97,7 @@ export default function FeedDetail() {
             <HiChevronLeft size="28" />
           </button>
           <span>{feed.createdAt}</span>
+          <p>{feed.owner.username}</p>
           <h3>{feed.title}</h3>
           <p>{feed.text}</p>
           {feed.photo && (
@@ -110,7 +111,7 @@ export default function FeedDetail() {
             <span>like {feed.likes ? feed.likes.length : 0} </span>
             <span>comment {feed.comments ? feed.comments.length : 0}</span>
           </div>
-          {user && !userLoading && feed.owner === user?._id && (
+          {user && !userLoading && feed.owner._id === user?._id && (
             <div>
               <Link to={`/feed/${feed._id}/edit`}>
                 <button>수정하기</button>
