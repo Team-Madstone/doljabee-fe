@@ -1,3 +1,4 @@
+import { TCursorPaging, TCursorPagingVariables } from '../types/common';
 import {
   TDeleteFeedMutation,
   TFeed,
@@ -8,8 +9,13 @@ import {
 } from '../types/feed';
 import { axiosInstance } from '../utils/axios';
 
-export const getFeeds = () => {
-  return axiosInstance.get<TFeed[]>('/feed');
+export const getFeeds = ({ cursor, limit }: TCursorPagingVariables) => {
+  return axiosInstance.get<TCursorPagingVariables, TCursorPaging<TFeed>>(
+    '/feed',
+    {
+      params: { cursor, limit },
+    }
+  );
 };
 
 export const getFeed = ({ _id }: TGetFeedMutation) => {
