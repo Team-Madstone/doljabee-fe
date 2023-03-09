@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import Layout from '../components/Layout';
 import Loading from '../components/Loading';
-import Nav from '../components/Nav';
 import { CLIENT_DOMAIN } from '../constances/domain';
 import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
@@ -43,30 +43,33 @@ export default function MyProfile() {
 
   return (
     <div>
-      <Nav />
-      <div>My Profile</div>
-      {data && (
-        <div>
-          <p>이메일: {data.data.email}</p>
-          <p>닉네임: {data.data.username}</p>
-          <p>
-            이메일 인증 여부:{' '}
-            {data.data.verifyEmail ? '인증 완료' : '인증되지 않음'}
-          </p>
-          <Link
-            to={APP.CHANGEUSERNAME}
-            state={{ username: data.data.username }}
-          >
-            <button>닉네임 수정</button>
-          </Link>
-          <Link to={APP.CHANGEPASSWORD}>
-            <button>비밀번호 변경</button>
-          </Link>
-          {!data.data.verifyEmail && (
-            <button onClick={handleResendVerifyEmail}>인증 메일 재전송</button>
-          )}
-        </div>
-      )}
+      <Layout>
+        <div>My Profile</div>
+        {data && (
+          <div>
+            <p>이메일: {data.data.email}</p>
+            <p>닉네임: {data.data.username}</p>
+            <p>
+              이메일 인증 여부:{' '}
+              {data.data.verifyEmail ? '인증 완료' : '인증되지 않음'}
+            </p>
+            <Link
+              to={APP.CHANGEUSERNAME}
+              state={{ username: data.data.username }}
+            >
+              <button>닉네임 수정</button>
+            </Link>
+            <Link to={APP.CHANGEPASSWORD}>
+              <button>비밀번호 변경</button>
+            </Link>
+            {!data.data.verifyEmail && (
+              <button onClick={handleResendVerifyEmail}>
+                인증 메일 재전송
+              </button>
+            )}
+          </div>
+        )}
+      </Layout>
     </div>
   );
 }

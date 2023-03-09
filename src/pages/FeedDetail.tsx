@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
-import Nav from '../components/Nav';
 import { UserContext } from '../context/UserContext';
 import { deleteFeed, getFeed, toggleLikeFeed } from '../services/feed';
 import { TError } from '../types/feed';
@@ -15,6 +14,7 @@ import {
   HiOutlineShare,
 } from 'react-icons/hi';
 import CommentForm from '../components/CommentForm';
+import Layout from '../components/Layout';
 
 export default function FeedDetail() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -89,46 +89,47 @@ export default function FeedDetail() {
 
   return (
     <div>
-      <Nav />
-      <div>
-        <div className="feedContainer">
-          <button onClick={handleGoBack}>
-            <HiChevronLeft size="28" />
-          </button>
-          <span>{feed.createdAt}</span>
-          <p>{feed.owner.username}</p>
-          <h3>{feed.title}</h3>
-          <p>{feed.text}</p>
-          {feed.photo && (
-            <img
-              src={`http://localhost:4000/${feed.photo}`}
-              style={{ width: '300px' }}
-              alt="img"
-            />
-          )}
-          <div>
-            <span>like {feed.likes ? feed.likes.length : 0} </span>
-            <span>comment {feed.comments ? feed.comments.length : 0}</span>
-          </div>
-          {user && !userLoading && feed.owner._id === user?._id && (
+      <Layout>
+        <div>
+          <div className="feedContainer">
+            <button onClick={handleGoBack}>
+              <HiChevronLeft size="28" />
+            </button>
+            <span>{feed.createdAt}</span>
+            <p>{feed.owner.username}</p>
+            <h3>{feed.title}</h3>
+            <p>{feed.text}</p>
+            {feed.photo && (
+              <img
+                src={`http://localhost:4000/${feed.photo}`}
+                style={{ width: '300px' }}
+                alt="img"
+              />
+            )}
             <div>
-              <Link to={`/feed/${feed._id}/edit`}>
-                <button>수정하기</button>
-              </Link>
-              <button onClick={() => handleDelete(feed._id)}>삭제하기</button>
+              <span>like {feed.likes ? feed.likes.length : 0} </span>
+              <span>comment {feed.comments ? feed.comments.length : 0}</span>
             </div>
-          )}
-          <div>
-            <button onClick={() => toggleLike()}>
-              {isLiked ? <HiHeart size="25" /> : <HiOutlineHeart size="25" />}
-            </button>
-            <button onClick={() => handleShare()}>
-              <HiOutlineShare size="25" />
-            </button>
+            {user && !userLoading && feed.owner._id === user?._id && (
+              <div>
+                <Link to={`/feed/${feed._id}/edit`}>
+                  <button>수정하기</button>
+                </Link>
+                <button onClick={() => handleDelete(feed._id)}>삭제하기</button>
+              </div>
+            )}
+            <div>
+              <button onClick={() => toggleLike()}>
+                {isLiked ? <HiHeart size="25" /> : <HiOutlineHeart size="25" />}
+              </button>
+              <button onClick={() => handleShare()}>
+                <HiOutlineShare size="25" />
+              </button>
+            </div>
+            <CommentForm comments={feed.comments} />
           </div>
-          <CommentForm comments={feed.comments} />
         </div>
-      </div>
+      </Layout>
     </div>
   );
 }

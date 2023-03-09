@@ -2,7 +2,7 @@ import { isAxiosError } from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import Nav from '../components/Nav';
+import Layout from '../components/Layout';
 import { CLIENT_DOMAIN } from '../constances/domain';
 import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
@@ -50,35 +50,36 @@ export default function ForgotPassword() {
 
   return (
     <div>
-      <Nav />
-      <h2>비밀번호 재설정</h2>
-      <p>
-        비밀번호를 잃어버리셨나요? <br />
-        Doljabee에 가입한 이메일을 정확히 입력해주세요. <br />
-        이메일을 통해 비밀번호 변경 링크가 전송됩니다. <br />
-      </p>
-      <form method="POST" onSubmit={handleSubmit(onValid)}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="text"
-            {...register('email', {
-              required: '이메일은 필수입니다.',
-              pattern: {
-                value:
-                  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-                message: '이메일 형식에 맞지 않습니다.',
-              },
-            })}
-          />
-          {formErrors?.email && (
-            <p className="error">{formErrors.email?.message}</p>
-          )}
-        </div>
-        {error && <p>{error}</p>}
-        <button type="submit">확인</button>
-      </form>
+      <Layout>
+        <h2>비밀번호 재설정</h2>
+        <p>
+          비밀번호를 잃어버리셨나요? <br />
+          Doljabee에 가입한 이메일을 정확히 입력해주세요. <br />
+          이메일을 통해 비밀번호 변경 링크가 전송됩니다. <br />
+        </p>
+        <form method="POST" onSubmit={handleSubmit(onValid)}>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="text"
+              {...register('email', {
+                required: '이메일은 필수입니다.',
+                pattern: {
+                  value:
+                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                  message: '이메일 형식에 맞지 않습니다.',
+                },
+              })}
+            />
+            {formErrors?.email && (
+              <p className="error">{formErrors.email?.message}</p>
+            )}
+          </div>
+          {error && <p>{error}</p>}
+          <button type="submit">확인</button>
+        </form>
+      </Layout>
     </div>
   );
 }

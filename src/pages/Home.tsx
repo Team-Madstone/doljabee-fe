@@ -3,7 +3,7 @@ import React from 'react';
 import { useInfiniteQuery } from 'react-query';
 import Feed from '../components/Feed';
 import InfiniteScroll from '../components/InfiniteScroll';
-import Nav from '../components/Nav';
+import Layout from '../components/Layout';
 import { getFeeds } from '../services/feed';
 import NotFound from './NotFound';
 
@@ -29,19 +29,20 @@ export default function Home() {
 
   return (
     <div>
-      <Nav />
-      <div>
-        {data?.pages.map((group, i) => (
-          <React.Fragment key={i}>
-            {group.data.items.map((feed) => (
-              <Feed key={feed._id} feed={feed} />
-            ))}
-          </React.Fragment>
-        ))}
-        {hasNextPage && !isFetchingNextPage && (
-          <InfiniteScroll callback={fetchNextPage} />
-        )}
-      </div>
+      <Layout>
+        <div>
+          {data?.pages.map((group, i) => (
+            <React.Fragment key={i}>
+              {group.data.items.map((feed) => (
+                <Feed key={feed._id} feed={feed} />
+              ))}
+            </React.Fragment>
+          ))}
+          {hasNextPage && !isFetchingNextPage && (
+            <InfiniteScroll callback={fetchNextPage} />
+          )}
+        </div>
+      </Layout>
     </div>
   );
 }
