@@ -2,31 +2,30 @@ import { isAxiosError } from 'axios';
 import React from 'react';
 import { useInfiniteQuery } from 'react-query';
 import Feed from '../components/Feed';
-import Loading from '../components/Loading';
+import InfiniteScroll from '../components/InfiniteScroll';
 import Nav from '../components/Nav';
 import { getFeeds } from '../services/feed';
 import NotFound from './NotFound';
 
 export default function Home() {
-  const fetchFeeds = ({ pageParam }: { pageParam?: string }) =>
-    getFeeds({ cursor: pageParam, limit: 5 });
+  const fetchFeeds = ({ pageParam }: { pageParam?: string }) => {
+    return getFeeds({ cursor: pageParam, limit: 5 });
+  };
 
-  const { isFetching, isError, data, error, fetchNextPage, hasNextPage } =
-    useInfiniteQuery('getFeeds', fetchFeeds, {
-      getNextPageParam: (data) => data.data.nextCursor,
-    });
-
-  if (isFetching) {
-    return <Loading />;
-  }
+  const {
+    isError,
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery('getFeeds', fetchFeeds, {
+    getNextPageParam: (data) => data.data.nextCursor,
+  });
 
   if (isError && isAxiosError(error)) {
     return <NotFound />;
   }
-
-  const handleClick = () => {
-    fetchNextPage();
-  };
 
   return (
     <div>
@@ -39,8 +38,10 @@ export default function Home() {
             ))}
           </React.Fragment>
         ))}
+        {hasNextPage && !isFetchingNextPage && (
+          <InfiniteScroll callback={fetchNextPage} />
+        )}
       </div>
-      {hasNextPage && <button onClick={handleClick}>next</button>}
     </div>
   );
 }
