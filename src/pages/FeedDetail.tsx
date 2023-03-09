@@ -86,7 +86,6 @@ export default function FeedDetail() {
   }
 
   const feed = data.data;
-  console.log(feed);
 
   return (
     <div>
