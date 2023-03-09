@@ -7,9 +7,9 @@ type TProps = {
 
 export default function Feed({ feed }: TProps) {
   return (
-    <div>
+    <div className="feedContainer">
       <Link to={`/feed/${feed._id}`}>
-        <div className="feedContainer">
+        <div className="feed">
           <span>{feed.createdAt}</span>
           <p>{feed.owner.username}</p>
           <h3>{feed.title}</h3>
