@@ -1,0 +1,12 @@
+@media (min-width: 1025px) {
+  .layout {
+    max-width: 925px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    margin: 0 20px;
+  }
+}
