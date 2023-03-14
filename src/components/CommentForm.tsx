@@ -6,6 +6,9 @@ import { getFeed } from '../services/feed';
 import { TComment, TCommentForm } from '../types/comment';
 import { TError } from '../types/feed';
 import Comment from './Comment';
+import styles from '../styles/components/commentForm.module.scss';
+import classNames from 'classnames';
+import '../styles/components/button.scss';
 
 type TProps = {
   comments: TComment[];
@@ -46,16 +49,23 @@ export default function CommentForm({ comments }: TProps) {
 
   return (
     <div>
-      <form method="POST" onSubmit={createCommentHandleSubmit(onValid)}>
+      <form
+        method="POST"
+        onSubmit={createCommentHandleSubmit(onValid)}
+        className={styles.form}
+      >
         <input
           type="text"
           {...createCommentRegister('text')}
           placeholder="댓글 작성하기"
+          className={styles.input}
         />
         {createCommentErrors?.text && (
           <p className="error">{createCommentErrors.text?.message}</p>
         )}
-        <button type="submit">댓글 달기</button>
+        <button className={classNames('btn', 'small', 'purple')} type="submit">
+          댓글 달기
+        </button>
       </form>
       <div>
         {data?.data.comments.map((comment: TComment) => (
