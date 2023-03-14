@@ -1,0 +1,40 @@
+.comment {
+  margin-bottom: 15px;
+
+  .commentUsername {
+    color: #555;
+  }
+
+  .commentCreatedAt {
+    color: #888;
+    font-size: 14px;
+  }
+}
+
+.form {
+  display: flex;
+  margin-bottom: 20px;
+
+  .input {
+    flex-grow: 1;
+    border: none;
+    border-bottom: 1px solid #d5d4d4;
+    padding: 6px 8px;
+    margin-right: 10px;
+  }
+}
+
+.text {
+  margin-bottom: 10px;
+}
+
+.btnWrapper {
+  margin-bottom: 20px;
+}
+.btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 6px;
+  cursor: pointer;
+}
