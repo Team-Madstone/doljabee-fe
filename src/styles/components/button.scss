@@ -1,0 +1,102 @@
+$black: #222;
+$purple: #7e19dd;
+$gray: #5f5d5d;
+
+@mixin button-color($color) {
+  color: $color;
+  &:hover {
+    color: lighten($color, 15%);
+  }
+  &:active {
+    color: darken($color, 15%);
+  }
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 6px;
+  cursor: pointer;
+
+  &.large {
+    font-size: 20px;
+  }
+
+  &.medium {
+    font-size: 16px;
+  }
+
+  &.small {
+    font-size: 14px;
+  }
+
+  &.purple {
+    @include button-color($purple);
+  }
+
+  &.gray {
+    @include button-color($gray);
+  }
+
+  &.black {
+    @include button-color($black);
+  }
+}
+
+.bg-btn {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 9px 18px;
+  &:hover {
+    width: 100%;
+    text-align: left;
+    background-color: #eee;
+  }
+}
+
+@mixin icon-color($color) {
+  color: $color;
+  &:hover {
+    color: lighten($color, 15%);
+  }
+  &:active {
+    color: darken($color, 15%);
+  }
+}
+
+.icon {
+  &.xx-large {
+    font-size: 32px;
+  }
+
+  &.x-large {
+    font-size: 25px;
+  }
+
+  &.large {
+    font-size: 20px;
+  }
+
+  &.medium {
+    font-size: 16px;
+  }
+
+  &.small {
+    font-size: 14px;
+  }
+
+  &.purple {
+    @include icon-color($purple);
+  }
+
+  &.gray {
+    @include icon-color($gray);
+  }
+
+  &.black {
+    @include icon-color($black);
+  }
+}

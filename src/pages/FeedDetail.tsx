@@ -9,12 +9,16 @@ import { TError } from '../types/feed';
 import NotFound from './NotFound';
 import {
   HiChevronLeft,
+  HiDotsVertical,
   HiHeart,
   HiOutlineHeart,
   HiOutlineShare,
 } from 'react-icons/hi';
 import CommentForm from '../components/CommentForm';
 import Layout from '../components/Layout';
+import styles from '../styles/feedDetail.module.scss';
+import classNames from 'classnames';
+import '../styles/components/button.scss';
 
 export default function FeedDetail() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -23,6 +27,7 @@ export default function FeedDetail() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isLiked, setIsLiked] = useState<boolean>();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { isLoading, isError, data, error } = useQuery(['getFeed', _id], () =>
     getFeed({ _id })
@@ -91,39 +96,72 @@ export default function FeedDetail() {
     <div>
       <Layout>
         <div>
-          <div className="feedContainer">
-            <button onClick={handleGoBack}>
-              <HiChevronLeft size="28" />
-            </button>
-            <span>{feed.createdAt}</span>
-            <p>{feed.owner.username}</p>
-            <h3>{feed.title}</h3>
-            <p>{feed.text}</p>
+          <div className={styles.feedContainer}>
+            <div className={styles.feedTop}>
+              <button className="btn" onClick={handleGoBack}>
+                <HiChevronLeft
+                  className={classNames('icon', 'xx-large', 'black')}
+                />
+              </button>
+              <div className={styles.feedInfo}>
+                <p>{feed.owner.username} &nbsp;</p>
+                <span>{feed.createdAt}</span>
+              </div>
+              {user && !userLoading && feed.owner._id === user?._id && (
+                <>
+                  <button
+                    className="btn"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  >
+                    <HiDotsVertical
+                      className={classNames('icon', 'large', 'black')}
+                    />
+                  </button>
+                  {isMenuOpen && (
+                    <div className={styles.menuWrapper}>
+                      <div className={styles.menu}>
+                        <Link to={`/feed/${feed._id}/edit`}>수정하기</Link>
+                        <button
+                          className={classNames('bg-btn')}
+                          onClick={() => handleDelete(feed._id)}
+                        >
+                          삭제하기
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+            <h3 className={styles.title}>{feed.title}</h3>
+            <p className={styles.text}>{feed.text}</p>
             {feed.photo && (
               <img
                 src={`http://localhost:4000/${feed.photo}`}
-                style={{ width: '300px' }}
+                // style={{ width: '300px' }}
                 alt="img"
               />
             )}
-            <div>
-              <span>like {feed.likes ? feed.likes.length : 0} </span>
+            <div className={styles.box}>
+              <span>like {feed.likes ? feed.likes.length : 0} &nbsp;</span>
               <span>comment {feed.comments ? feed.comments.length : 0}</span>
             </div>
-            {user && !userLoading && feed.owner._id === user?._id && (
-              <div>
-                <Link to={`/feed/${feed._id}/edit`}>
-                  <button>수정하기</button>
-                </Link>
-                <button onClick={() => handleDelete(feed._id)}>삭제하기</button>
-              </div>
-            )}
             <div>
-              <button onClick={() => toggleLike()}>
-                {isLiked ? <HiHeart size="25" /> : <HiOutlineHeart size="25" />}
+              <button className="btn" onClick={() => toggleLike()}>
+                {isLiked ? (
+                  <HiHeart
+                    className={classNames('icon', 'x-large', 'purple')}
+                  />
+                ) : (
+                  <HiOutlineHeart
+                    className={classNames('icon', 'x-large', 'purple')}
+                  />
+                )}
               </button>
-              <button onClick={() => handleShare()}>
-                <HiOutlineShare size="25" />
+              <button className="btn" onClick={() => handleShare()}>
+                <HiOutlineShare
+                  className={classNames('icon', 'x-large', 'purple')}
+                />
               </button>
             </div>
             <CommentForm comments={feed.comments} />
