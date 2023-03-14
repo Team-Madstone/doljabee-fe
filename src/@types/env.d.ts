@@ -3,3 +3,5 @@ declare namespace NodeJS {
     NODE_ENV: string;
   }
 }
+
+declare module '*.scss';
