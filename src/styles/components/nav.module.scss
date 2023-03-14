@@ -6,16 +6,6 @@
   .navMenu {
     padding: 10px;
   }
-  .myBtn {
-    background-color: transparent;
-    border: none;
-    font-family: inherit;
-    font-size: inherit;
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-    cursor: pointer;
-  }
 }
 
 .menuWrapper {
@@ -38,24 +28,24 @@
         background-color: #eee;
       }
     }
-    button {
-      display: block;
-      background-color: transparent;
-      border: none;
-      font-family: inherit;
-      font-size: 14px;
-      padding: 9px 18px;
-      &:hover {
-        width: 100%;
-        text-align: left;
-        background-color: #eee;
-      }
-    }
+    // button {
+    //   display: block;
+    //   background-color: transparent;
+    //   border: none;
+    //   font-family: inherit;
+    //   font-size: 14px;
+    //   padding: 9px 18px;
+    //   &:hover {
+    //     width: 100%;
+    //     text-align: left;
+    //     background-color: #eee;
+    //   }
+    // }
   }
 }
 
 @media (min-width: 1025px) {
   .nav {
-    max-width: 925px;
+    max-width: 825px;
   }
 }

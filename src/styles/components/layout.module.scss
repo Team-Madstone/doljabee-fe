@@ -1,0 +1,18 @@
+@media (min-width: 1025px) {
+  .layout {
+    max-width: 825px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .layout {
+    margin: 0 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .layout {
+    margin: 0 20px;
+  }
+}

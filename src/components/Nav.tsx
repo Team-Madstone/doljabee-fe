@@ -5,6 +5,9 @@ import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
 import { logoutUser } from '../services/user';
 import { onLogoutSuccess } from '../utils/axios';
+import styles from '../styles/components/nav.module.scss';
+import classNames from 'classnames';
+import '../styles/components/button.scss';
 
 export default function Nav() {
   const { user, removeUser } = useContext(UserContext);
@@ -26,25 +29,29 @@ export default function Nav() {
 
   return (
     <div>
-      <nav className="nav">
-        <div className="navMenu">
+      <nav className={styles.nav}>
+        <div className={styles.navMenu}>
           <NavLink to="/">홈</NavLink>
         </div>
         {user ? (
-          <div className="navMenu">
+          <div className={styles.navMenu}>
             <button
               type="button"
-              className="myBtn"
+              className={classNames('btn', 'medium', 'black')}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               마이페이지
             </button>
             {isMenuOpen && (
-              <div className="menuWrapper">
-                <div className="menu">
+              <div className={styles.menuWrapper}>
+                <div className={styles.menu}>
                   <Link to="/my-profile">내 프로필</Link>
                   <Link to="/upload">업로드</Link>
-                  <button type="button" onClick={logout}>
+                  <button
+                    type="button"
+                    onClick={logout}
+                    className={classNames('bg-btn')}
+                  >
                     로그아웃
                   </button>
                 </div>
@@ -52,7 +59,7 @@ export default function Nav() {
             )}
           </div>
         ) : (
-          <div className="navMenu">
+          <div className={styles.navMenu}>
             <NavLink to="/login">Login</NavLink>
           </div>
         )}

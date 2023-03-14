@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { TFeed } from '../types/feed';
+import styles from '../styles/components/feed.module.scss';
 
 type TProps = {
   feed: TFeed;
@@ -7,13 +8,15 @@ type TProps = {
 
 export default function Feed({ feed }: TProps) {
   return (
-    <div className="feedContainer">
+    <div className={styles.feedContainer}>
       <Link to={`/feed/${feed._id}`}>
-        <div className="feed">
-          <span>{feed.createdAt}</span>
-          <p>{feed.owner.username}</p>
-          <h3>{feed.title}</h3>
-          <p>{feed.text}</p>
+        <div className={styles.feed}>
+          <div className={styles.feedInfo}>
+            <p>{feed.owner.username} &nbsp;</p>
+            <span>{feed.createdAt}</span>
+          </div>
+          <h3 className={styles.title}>{feed.title}</h3>
+          <p className={styles.text}>{feed.text}</p>
           {feed.photo && (
             <img
               src={`http://localhost:4000/${feed.photo}`}
@@ -21,8 +24,8 @@ export default function Feed({ feed }: TProps) {
               alt="img"
             />
           )}
-          <div>
-            <span>like {feed.likes ? feed.likes.length : 0}</span>
+          <div className={styles.box}>
+            <span>like {feed.likes ? feed.likes.length : 0} &nbsp;</span>
             <span>comment {feed.comments ? feed.comments.length : 0}</span>
           </div>
         </div>
