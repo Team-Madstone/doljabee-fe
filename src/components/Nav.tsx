@@ -6,8 +6,6 @@ import { UserContext } from '../context/UserContext';
 import { logoutUser } from '../services/user';
 import { onLogoutSuccess } from '../utils/axios';
 import styles from '../styles/components/nav.module.scss';
-import classNames from 'classnames';
-import '../styles/components/button.scss';
 
 export default function Nav() {
   const { user, removeUser } = useContext(UserContext);
@@ -37,7 +35,7 @@ export default function Nav() {
           <div className={styles.navMenu}>
             <button
               type="button"
-              className={classNames('btn', 'medium', 'black')}
+              className={styles.btn}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               마이페이지
@@ -47,11 +45,7 @@ export default function Nav() {
                 <div className={styles.menu}>
                   <Link to="/my-profile">내 프로필</Link>
                   <Link to="/upload">업로드</Link>
-                  <button
-                    type="button"
-                    onClick={logout}
-                    className={classNames('bg-btn')}
-                  >
+                  <button type="button" onClick={logout} className={styles.btn}>
                     로그아웃
                   </button>
                 </div>
