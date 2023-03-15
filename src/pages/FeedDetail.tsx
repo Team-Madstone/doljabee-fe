@@ -17,8 +17,6 @@ import {
 import CommentForm from '../components/CommentForm';
 import Layout from '../components/Layout';
 import styles from '../styles/feedDetail.module.scss';
-import classNames from 'classnames';
-import '../styles/components/button.scss';
 
 export default function FeedDetail() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -98,31 +96,28 @@ export default function FeedDetail() {
         <div>
           <div className={styles.feedContainer}>
             <div className={styles.feedTop}>
-              <button className="btn" onClick={handleGoBack}>
-                <HiChevronLeft
-                  className={classNames('icon', 'xx-large', 'black')}
-                />
+              <button className={styles.btn} onClick={handleGoBack}>
+                <HiChevronLeft />
               </button>
               <div className={styles.feedInfo}>
-                <p>{feed.owner.username} &nbsp;</p>
-                <span>{feed.createdAt}</span>
+                <p className={styles.username}>{feed.owner.username} &nbsp;</p>
+                <span className={styles.date}>{feed.createdAt}</span>
               </div>
               {user && !userLoading && feed.owner._id === user?._id && (
                 <>
                   <button
-                    className="btn"
+                    className={styles.dotBtn}
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
-                    <HiDotsVertical
-                      className={classNames('icon', 'large', 'black')}
-                    />
+                    <HiDotsVertical />
                   </button>
                   {isMenuOpen && (
                     <div className={styles.menuWrapper}>
                       <div className={styles.menu}>
                         <Link to={`/feed/${feed._id}/edit`}>수정하기</Link>
                         <button
-                          className={classNames('bg-btn')}
+                          type="button"
+                          className={styles.delBtn}
                           onClick={() => handleDelete(feed._id)}
                         >
                           삭제하기
@@ -138,30 +133,24 @@ export default function FeedDetail() {
             {feed.photo && (
               <img
                 src={`http://localhost:4000/${feed.photo}`}
-                // style={{ width: '300px' }}
+                className={styles.img}
                 alt="img"
               />
             )}
             <div className={styles.box}>
-              <span>like {feed.likes ? feed.likes.length : 0} &nbsp;</span>
-              <span>comment {feed.comments ? feed.comments.length : 0}</span>
+              <span className={styles.span}>
+                like {feed.likes ? feed.likes.length : 0} &nbsp;
+              </span>
+              <span className={styles.span}>
+                comment {feed.comments ? feed.comments.length : 0}
+              </span>
             </div>
             <div>
-              <button className="btn" onClick={() => toggleLike()}>
-                {isLiked ? (
-                  <HiHeart
-                    className={classNames('icon', 'x-large', 'purple')}
-                  />
-                ) : (
-                  <HiOutlineHeart
-                    className={classNames('icon', 'x-large', 'purple')}
-                  />
-                )}
+              <button className={styles.icon} onClick={() => toggleLike()}>
+                {isLiked ? <HiHeart /> : <HiOutlineHeart />}
               </button>
-              <button className="btn" onClick={() => handleShare()}>
-                <HiOutlineShare
-                  className={classNames('icon', 'x-large', 'purple')}
-                />
+              <button className={styles.icon} onClick={() => handleShare()}>
+                <HiOutlineShare />
               </button>
             </div>
             <CommentForm comments={feed.comments} />

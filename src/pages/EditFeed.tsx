@@ -11,6 +11,7 @@ import NotFound from './NotFound';
 import { isAxiosError } from 'axios';
 import { UserContext } from '../context/UserContext';
 import Layout from '../components/Layout';
+import styles from '../styles/editFeed.module.scss';
 
 export default function EditFeed() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -88,17 +89,20 @@ export default function EditFeed() {
     <div>
       <Layout>
         <div>
-          <div>Edit Feed</div>
+          <h2 className={styles.title}>Edit Feed</h2>
           <form
             method="PUT"
             encType="multipart/form-data"
             onSubmit={handleSubmit(onValid)}
           >
-            <div>
-              <label htmlFor="title">제목</label>
+            <div className={styles.inputWrapper}>
+              <label htmlFor="title" className={styles.label}>
+                제목
+              </label>
               <input
                 id="title"
                 type="text"
+                className={styles.input}
                 {...register('title', {
                   required: '제목은 필수입니다.',
                   maxLength: {
@@ -107,15 +111,18 @@ export default function EditFeed() {
                   },
                 })}
               />
-              {errors?.title && (
-                <p className="error">{errors.title?.message}</p>
-              )}
             </div>
-            <div>
-              <label htmlFor="text">내용</label>
+            {errors?.title && (
+              <p className={styles.errorMsg}>{errors.title?.message}</p>
+            )}
+            <div className={styles.inputWrapper}>
+              <label htmlFor="text" className={styles.label}>
+                내용
+              </label>
               <input
                 id="text"
                 type="text"
+                className={styles.input}
                 {...register('text', {
                   required: '내용은 필수입니다.',
                   minLength: {
@@ -124,14 +131,19 @@ export default function EditFeed() {
                   },
                 })}
               />
-              {errors?.text && <p className="error">{errors.text?.message}</p>}
+              {errors?.text && (
+                <p className={styles.errorMsg}>{errors.text?.message}</p>
+              )}
             </div>
-            <div>
-              <label htmlFor="photoFile">사진</label>
+            <div className={styles.inputWrapper}>
+              <label htmlFor="photoFile" className={styles.label}>
+                사진
+              </label>
               <input
                 id="photoFile"
                 type="file"
                 accept="image/*"
+                className={styles.inputNoBorder}
                 {...register('photoFile', {
                   onChange: handlePhotoFileChange,
                 })}
@@ -143,10 +155,18 @@ export default function EditFeed() {
               )}
             </div>
             {updateFeedIsError && isAxiosError(updateFeedError) && (
-              <p>{updateFeedError.response?.data.message}</p>
+              <p className={styles.errorMsg}>
+                {updateFeedError.response?.data.message}
+              </p>
             )}
-            <button type="submit">저장하기</button>
-            <button onClick={handleGoBack}>취소하기</button>
+            <div className={styles.buttonWrapper}>
+              <button className={styles.btn} onClick={handleGoBack}>
+                취소하기
+              </button>
+              <button className={styles.btn} type="submit">
+                저장하기
+              </button>
+            </div>
           </form>
         </div>
       </Layout>

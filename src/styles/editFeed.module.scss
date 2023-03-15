@@ -1,0 +1,55 @@
+@import './mixins.scss';
+
+.title {
+  @include title;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  @include mb(10);
+
+  .label {
+    @include mr(5);
+  }
+
+  .input {
+    @include inputBorder;
+  }
+
+  .inputNoBorder {
+    @include inputNoBorder;
+  }
+}
+
+.buttonWrapper {
+  @include rightBtn;
+
+  .btn {
+    @include bgBtn($lightgray);
+    @include ml(6);
+  }
+}
+
+.errorMsg {
+  @include errorMsg($red);
+  @include fontSm;
+  @include mt(5);
+  @include mb(10);
+}
+
+@media (max-width: 480px) {
+  .inputWrapper {
+    display: block;
+
+    .label {
+      display: block;
+      @include mb(5);
+      @include fontSm;
+    }
+
+    .input {
+      width: calc(100% - 20px);
+    }
+  }
+}

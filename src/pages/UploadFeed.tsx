@@ -9,6 +9,7 @@ import { useMutation } from 'react-query';
 import Loading from '../components/Loading';
 import { isAxiosError } from 'axios';
 import Layout from '../components/Layout';
+import styles from '../styles/uploadFeed.module.scss';
 
 export default function UploadFeed() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -62,18 +63,21 @@ export default function UploadFeed() {
   return (
     <div>
       <Layout>
-        <h1>Upload Feed</h1>
+        <h2 className={styles.title}>Upload Feed</h2>
         <form
           method="POST"
           encType="multipart/form-data"
           className="uploadForm"
           onSubmit={handleSubmit(onValid)}
         >
-          <div>
-            <label htmlFor="title">제목</label>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="title" className={styles.label}>
+              제목
+            </label>
             <input
               id="title"
               type="text"
+              className={styles.input}
               {...register('title', {
                 required: '제목은 필수입니다.',
                 maxLength: {
@@ -82,13 +86,17 @@ export default function UploadFeed() {
                 },
               })}
             />
-            {errors?.title && <p className="error">{errors.title?.message}</p>}
           </div>
-          <div>
-            <label htmlFor="text">내용</label>
-            <input
-              id="text"
-              type="text"
+          {errors?.title && (
+            <p className={styles.errorMsg}>{errors.title?.message}</p>
+          )}
+          <div className={styles.inputWrapper}>
+            <label htmlFor="text" className={styles.label}>
+              내용
+            </label>
+            <textarea
+              rows={4}
+              className={styles.input}
               {...register('text', {
                 required: '내용은 필수입니다.',
                 minLength: {
@@ -97,14 +105,19 @@ export default function UploadFeed() {
                 },
               })}
             />
-            {errors?.text && <p className="error">{errors.text?.message}</p>}
           </div>
-          <div>
-            <label htmlFor="photoFile">사진</label>
+          {errors?.text && (
+            <p className={styles.errorMsg}>{errors.text?.message}</p>
+          )}
+          <div className={styles.inputWrapper}>
+            <label htmlFor="photoFile" className={styles.label}>
+              사진
+            </label>
             <input
               id="photoFile"
               type="file"
               accept="image/*"
+              className={styles.inputNoBorder}
               {...register('photoFile', {
                 onChange: handlePhotoFileChange,
               })}
@@ -116,11 +129,17 @@ export default function UploadFeed() {
             )}
           </div>
           {isError && isAxiosError(error) && (
-            <p>{error.response?.data.message}</p>
+            <p className={styles.errorMsg}>{error.response?.data.message}</p>
           )}
-          <button type="submit" className="uploadBtn" disabled={isLoading}>
-            {isLoading ? '업로드 중' : '올리기'}
-          </button>
+          <div className={styles.btnWrapper}>
+            <button
+              type="submit"
+              className={styles.button}
+              disabled={isLoading}
+            >
+              {isLoading ? '업로드 중' : '올리기'}
+            </button>
+          </div>
         </form>
       </Layout>
     </div>

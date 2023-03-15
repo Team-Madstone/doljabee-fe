@@ -1,7 +1,14 @@
+@import './mixins.scss';
+
 .feedContainer {
   .feedTop {
     display: flex;
-    margin-bottom: 10px;
+    @include mb(10);
+
+    .btn {
+      @include btn($black);
+      @include fontXxl;
+    }
 
     .feedInfo {
       display: flex;
@@ -9,53 +16,71 @@
       margin-left: 10px;
       flex-grow: 1;
 
-      p {
-        color: #555;
+      .username {
+        @include textColor($darkgray);
       }
 
-      span {
-        font-size: 14px;
-        color: #888;
+      .date {
+        @include fontSm;
+        @include textColor($info);
       }
     }
 
+    .dotBtn {
+      @include btn($black);
+      @include fontLg;
+    }
+
     .menuWrapper {
-      position: relative;
+      @include menuWrapper;
       .menu {
-        background-color: white;
-        position: absolute;
-        top: 20px;
-        right: 0px;
-        min-width: 100px;
-        border: 1px solid lightgray;
-        margin: 10px 0;
-        padding: 3px 0;
-        border-radius: 4px;
+        @include menu;
+        top: 25px;
+
         a {
           display: block;
           padding: 9px 18px;
-          font-size: 14px;
+          @include fontSm;
           &:hover {
             background-color: #eee;
           }
+        }
+
+        .delBtn {
+          @include hoverBgBtn($lightgray);
+          @include fontSm;
+          padding: 9px 18px;
         }
       }
     }
   }
 
   .title {
-    font-size: 20px;
-    margin-bottom: 10px;
+    @include fontLg;
+    @include mb(10);
   }
 
   .text {
-    color: #555;
-    margin-bottom: 15px;
+    @include textColor($darkgray);
+    @include mb(15);
+  }
+
+  .img {
+    width: 100%;
   }
 
   .box {
-    font-size: 14px;
     margin: 10px 0;
-    color: #888;
+
+    .span {
+      @include fontSm;
+      @include textColor($info);
+    }
+  }
+
+  .icon {
+    @include btn($purple);
+    @include fontXl;
+    @include mr(5);
   }
 }
