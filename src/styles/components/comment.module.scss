@@ -1,40 +1,50 @@
-.comment {
-  margin-bottom: 15px;
+@import '../mixins.scss';
 
-  .commentUsername {
-    color: #555;
+.comment {
+  @include mb(10);
+
+  .username {
+    @include textColor($darkgray);
   }
 
-  .commentCreatedAt {
-    color: #888;
-    font-size: 14px;
+  .createdAt {
+    @include textColor($info);
+    @include fontSm;
   }
 }
 
 .form {
   display: flex;
-  margin-bottom: 20px;
+  @include mb(20);
 
   .input {
-    flex-grow: 1;
-    border: none;
-    border-bottom: 1px solid #d5d4d4;
-    padding: 6px 8px;
-    margin-right: 10px;
+    @include inputFull;
+  }
+
+  .btn {
+    @include btn($purple);
+    @include fontSm;
+    @include ml(10);
+    @include mr(5);
+  }
+
+  .delBtn {
+    @include btn($gray);
+    @include fontSm;
   }
 }
 
 .text {
-  margin-bottom: 10px;
+  @include mb(10);
 }
 
 .btnWrapper {
-  margin-bottom: 20px;
+  @include mb(20);
 }
-.btn {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin-right: 6px;
-  cursor: pointer;
+
+.icon {
+  @include btn($black);
+  @include fontMd;
+  @include mr(5);
+  @include buttonColor($mediumgray);
 }

@@ -7,8 +7,6 @@ import { useContext, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UserContext } from '../context/UserContext';
 import styles from '../styles/components/comment.module.scss';
-import classNames from 'classnames';
-import '../styles/components/button.scss';
 
 type TProps = {
   comment: TComment;
@@ -62,10 +60,8 @@ export default function Comment({ comment }: TProps) {
   return (
     <div key={comment._id}>
       <div className={styles.comment}>
-        <span className={styles.commentUsername}>
-          {comment.username} &nbsp;
-        </span>
-        <span className={styles.commentCreatedAt}>{comment.createdAt}</span>
+        <span className={styles.username}>{comment.username} &nbsp;</span>
+        <span className={styles.createdAt}>{comment.createdAt}</span>
       </div>
       <div>
         {isEdit && comment._id === chosenCommentId ? (
@@ -79,16 +75,10 @@ export default function Comment({ comment }: TProps) {
               {...register('editComment')}
               className={styles.input}
             />
-            <button
-              className={classNames('btn', 'small', 'purple')}
-              type="submit"
-            >
+            <button className={styles.btn} type="submit">
               수정
             </button>
-            <button
-              className={classNames('btn', 'small', 'gray')}
-              onClick={onCancelClick}
-            >
+            <button className={styles.delBtn} onClick={onCancelClick}>
               취소
             </button>
           </form>
@@ -99,16 +89,16 @@ export default function Comment({ comment }: TProps) {
       {comment.user === user?._id && (
         <div className={styles.btnWrapper}>
           <button
-            className={styles.btn}
+            className={styles.icon}
             onClick={() => onDeleteClick(comment._id)}
           >
-            <HiOutlineX className={classNames('icon', 'medium', 'black')} />
+            <HiOutlineX />
           </button>
           <button
-            className={styles.btn}
+            className={styles.icon}
             onClick={() => onEditClick(comment._id)}
           >
-            <HiPencil className={classNames('icon', 'medium', 'black')} />
+            <HiPencil />
           </button>
         </div>
       )}

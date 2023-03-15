@@ -1,12 +1,22 @@
+@import '../mixins.scss';
+
 .form {
   display: flex;
-  margin-bottom: 20px;
+  @include mb(20);
 
   .input {
-    flex-grow: 1;
-    border: none;
-    border-bottom: 1px solid #d5d4d4;
-    padding: 6px 8px;
-    margin-right: 10px;
+    @include inputFull;
+    @include mr(10);
+  }
+
+  .errorMsg {
+    @include errorMsg($red);
+    @include fontSm;
+    @include mt(5);
+    @include mb(10);
+  }
+
+  .button {
+    @include btn($purple);
   }
 }
