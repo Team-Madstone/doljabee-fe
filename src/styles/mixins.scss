@@ -1,0 +1,165 @@
+$black: #222;
+$purple: #7e19dd;
+$darkgray: #555;
+$info: #888;
+$gray: #5f5d5d;
+$mediumgray: #b3b3b3;
+$lightgray: #eee;
+$red: #e00e0e;
+$white: #fff;
+
+@mixin textColor($color) {
+  color: $color;
+}
+
+@mixin buttonColor($color) {
+  color: $color;
+  &:hover {
+    color: lighten($color, 15%);
+  }
+  &:active {
+    color: darken($color, 15%);
+  }
+}
+@mixin fontSm {
+  font-size: 14px;
+}
+@mixin fontMd {
+  font-size: 16px;
+}
+
+@mixin fontLg {
+  font-size: 20px;
+}
+
+@mixin fontXl {
+  font-size: 25px;
+}
+
+@mixin fontXxl {
+  font-size: 32px;
+}
+
+@mixin bgColor($color) {
+  background-color: $color;
+  &:hover {
+    background-color: darken($color, 10%);
+  }
+}
+
+@mixin iconColor($color) {
+  color: $color;
+  &:hover {
+    color: lighten($color, 15%);
+  }
+  &:active {
+    color: darken($color, 15%);
+  }
+}
+
+@mixin title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+@mixin errorMsg($color) {
+  color: $color;
+}
+
+@mixin mt($num) {
+  margin-top: #{($num) + 'px'};
+}
+
+@mixin mb($num) {
+  margin-bottom: #{($num) + 'px'};
+}
+
+@mixin ml($num) {
+  margin-left: #{($num) + 'px'};
+}
+
+@mixin mr($num) {
+  margin-right: #{($num) + 'px'};
+}
+
+@mixin inputWrapper {
+  display: flex;
+  align-items: center;
+}
+
+@mixin input {
+  border: none;
+  border-bottom: 1px solid #d5d4d4;
+  padding: 6px 8px;
+}
+
+@mixin inputFull {
+  border: none;
+  border-bottom: 1px solid #d5d4d4;
+  padding: 6px 8px;
+  flex-grow: 1;
+}
+
+@mixin inputBorder {
+  flex-grow: 1;
+  border: 1px solid #d5d4d4;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+
+@mixin inputNoBorder {
+  border: none;
+}
+
+@mixin btn($color) {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: $color;
+}
+
+@mixin hoverBgBtn($color) {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  &:hover {
+    width: 100%;
+    text-align: left;
+    background-color: $color;
+  }
+}
+
+@mixin bgBtn($color) {
+  background-color: $color;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@mixin rightBtn {
+  display: flex;
+  justify-content: end;
+}
+
+@mixin bold {
+  font-weight: 700;
+}
+
+@mixin menuWrapper {
+  position: relative;
+}
+
+@mixin menu {
+  background-color: white;
+  position: absolute;
+  right: 0px;
+  min-width: 100px;
+  border: 1px solid #d3d3d3;
+  margin: 10px 0;
+  padding: 3px 0;
+  border-radius: 4px;
+}
