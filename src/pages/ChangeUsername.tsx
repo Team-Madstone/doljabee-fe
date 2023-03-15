@@ -8,6 +8,7 @@ import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
 import { changeUsername } from '../services/user';
 import { TChangeUsername } from '../types/user';
+import styles from '../styles/changeUsername.module.scss';
 
 export default function ChangeUsername() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -38,6 +39,10 @@ export default function ChangeUsername() {
     changeUsernameMutation({ username });
   };
 
+  const checkKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter') e.preventDefault();
+  };
+
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -51,42 +56,59 @@ export default function ChangeUsername() {
 
   useEffect(() => {
     setValue('username', location.state.username);
-  }, []);
+  }, [location.state.username, setValue]);
 
   return (
     <div>
       <Layout>
-        <h2>Change Username</h2>
-        <form method="POST" onSubmit={handleSubmit(onValid)}>
-          <div>
-            <label htmlFor="username">닉네임 </label>
-            <input
-              id="username"
-              type="text"
-              {...register('username', {
-                required: '닉네임은 필수입니다.',
-                minLength: {
-                  value: 2,
-                  message: '2글자 이상 작성해주세요.',
-                },
-                maxLength: {
-                  value: 10,
-                  message: '10글자 이하로 작성해주세요.',
-                },
-              })}
-            />
+        <div className={styles.div}>
+          <h2 className={styles.title}>Change Username</h2>
+          <form
+            method="POST"
+            onSubmit={handleSubmit(onValid)}
+            onKeyDown={(e) => checkKeyDown(e)}
+          >
+            <div className={styles.inputWrapper}>
+              <label htmlFor="username" className={styles.label}>
+                닉네임{' '}
+              </label>
+              <input
+                id="username"
+                type="text"
+                className={styles.input}
+                {...register('username', {
+                  required: '닉네임은 필수입니다.',
+                  minLength: {
+                    value: 2,
+                    message: '2글자 이상 작성해주세요.',
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: '10글자 이하로 작성해주세요.',
+                  },
+                })}
+              />
+            </div>
             {formErrors?.username && (
-              <p className="error">{formErrors.username?.message}</p>
+              <p className={styles.errorMsg}>{formErrors.username?.message}</p>
             )}
-          </div>
-          {isError && isAxiosError(error) && (
-            <p>{error.response?.data.message}</p>
-          )}
-          <button onClick={handleGoBack}>취소</button>
-          <button disabled={isLoading} type="submit">
-            {isLoading ? '변경중' : '변경하기'}
-          </button>
-        </form>
+            {isError && isAxiosError(error) && (
+              <p className={styles.errorMsg}>{error.response?.data.message}</p>
+            )}
+            <div className={styles.btnWrapper}>
+              <button className={styles.button} onClick={handleGoBack}>
+                취소
+              </button>
+              <button
+                className={styles.button}
+                disabled={isLoading}
+                type="submit"
+              >
+                {isLoading ? '변경중' : '변경하기'}
+              </button>
+            </div>
+          </form>
+        </div>
       </Layout>
     </div>
   );

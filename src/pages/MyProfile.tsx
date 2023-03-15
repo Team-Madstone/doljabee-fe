@@ -8,6 +8,7 @@ import { CLIENT_DOMAIN } from '../constances/domain';
 import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
 import { getMyProfile, resendVerifyEmail } from '../services/user';
+import styles from '../styles/myProfile.module.scss';
 
 const callbackUrl = `${CLIENT_DOMAIN}/user/finish`;
 
@@ -44,29 +45,45 @@ export default function MyProfile() {
   return (
     <div>
       <Layout>
-        <div>My Profile</div>
         {data && (
-          <div>
-            <p>이메일: {data.data.email}</p>
-            <p>닉네임: {data.data.username}</p>
-            <p>
-              이메일 인증 여부:{' '}
-              {data.data.verifyEmail ? '인증 완료' : '인증되지 않음'}
-            </p>
-            <Link
-              to={APP.CHANGEUSERNAME}
-              state={{ username: data.data.username }}
-            >
-              <button>닉네임 수정</button>
-            </Link>
-            <Link to={APP.CHANGEPASSWORD}>
-              <button>비밀번호 변경</button>
-            </Link>
-            {!data.data.verifyEmail && (
-              <button onClick={handleResendVerifyEmail}>
-                인증 메일 재전송
-              </button>
-            )}
+          <div className={styles.div}>
+            <h2 className={styles.title}>My Profile</h2>
+            <div className={styles.infoBox}>
+              <p className={styles.text}>
+                이메일
+                <span className={styles.bold}> {data.data.email}</span>
+              </p>
+              <p className={styles.text}>
+                닉네임<span className={styles.bold}> {data.data.username}</span>
+              </p>
+              <p className={styles.text}>
+                이메일 인증 여부
+                <span className={styles.bold}>
+                  {' '}
+                  {data.data.verifyEmail ? '인증 완료' : '인증되지 않음'}
+                </span>
+              </p>
+            </div>
+            <div className={styles.btnWrapper}>
+              <Link
+                to={APP.CHANGEUSERNAME}
+                state={{ username: data.data.username }}
+              >
+                <button className={styles.button}>닉네임 수정</button>
+              </Link>
+              <Link to={APP.CHANGEPASSWORD}>
+                <button className={styles.button}>비밀번호 변경</button>
+              </Link>
+
+              {!data.data.verifyEmail && (
+                <button
+                  className={styles.button}
+                  onClick={handleResendVerifyEmail}
+                >
+                  인증 메일 재전송
+                </button>
+              )}
+            </div>
           </div>
         )}
       </Layout>

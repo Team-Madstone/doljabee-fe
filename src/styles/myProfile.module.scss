@@ -1,0 +1,39 @@
+@import './mixins.scss';
+
+.div {
+  max-width: 340px;
+  margin: 0 auto;
+
+  .title {
+    @include title;
+    text-align: center;
+  }
+
+  .infoBox {
+    @include mb(20);
+
+    .text {
+      @include mb(10);
+    }
+
+    .bold {
+      @include bold;
+    }
+  }
+
+  .btnWrapper {
+    display: flex;
+    align-items: center;
+
+    .button {
+      @include bgBtn($lightgray);
+      @include mr(6);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .text {
+    @include fontSm;
+  }
+}

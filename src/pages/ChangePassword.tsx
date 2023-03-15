@@ -9,6 +9,7 @@ import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
 import { changePassword } from '../services/user';
 import { TChangePassword } from '../types/user';
+import styles from '../styles/changePassword.module.scss';
 
 export default function ChangePassword() {
   const { user, isLoading: userLoading } = useContext(UserContext);
@@ -44,6 +45,10 @@ export default function ChangePassword() {
     });
   };
 
+  const checkKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter') e.preventDefault();
+  };
+
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -62,81 +67,110 @@ export default function ChangePassword() {
   return (
     <div>
       <Layout>
-        <h2>Change Password</h2>
-        <form method="POST" onSubmit={handleSubmit(onValid)}>
-          <div>
-            <label htmlFor="password">현재 비밀번호 </label>
-            <input
-              id="password"
-              type="password"
-              {...register('oldPassword', {
-                required: '비밀번호는 필수입니다.',
-                minLength: {
-                  value: 6,
-                  message: '6글자 이상 작성해주세요.',
-                },
-                maxLength: {
-                  value: 20,
-                  message: '20글자 이하로 작성해주세요.',
-                },
-              })}
-            />
-            {formErrors?.oldPassword && (
-              <p className="error">{formErrors.oldPassword?.message}</p>
+        <div className={styles.div}>
+          <h2 className={styles.title}>Change Password</h2>
+          <form
+            method="POST"
+            onSubmit={handleSubmit(onValid)}
+            onKeyDown={(e) => checkKeyDown(e)}
+          >
+            <div className={styles.container}>
+              <div className={styles.inputWrapper}>
+                <label htmlFor="password" className={styles.label}>
+                  현재 비밀번호{' '}
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  className={styles.input}
+                  {...register('oldPassword', {
+                    required: '비밀번호는 필수입니다.',
+                    minLength: {
+                      value: 6,
+                      message: '6글자 이상 작성해주세요.',
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: '20글자 이하로 작성해주세요.',
+                    },
+                  })}
+                />
+              </div>
+              {formErrors?.oldPassword && (
+                <p className={styles.errorMsg}>
+                  {formErrors.oldPassword?.message}
+                </p>
+              )}
+              <div className={styles.inputWrapper}>
+                <label htmlFor="newPassword" className={styles.label}>
+                  새로운 비밀번호{' '}
+                </label>
+                <input
+                  id="newPassword"
+                  type="password"
+                  className={styles.input}
+                  {...register('newPassword', {
+                    required: '비밀번호는 필수입니다.',
+                    minLength: {
+                      value: 6,
+                      message: '6글자 이상 작성해주세요.',
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: '20글자 이하로 작성해주세요.',
+                    },
+                  })}
+                />
+              </div>
+              {formErrors?.newPassword && (
+                <p className={styles.errorMsg}>
+                  {formErrors.newPassword?.message}
+                </p>
+              )}
+              <div className={styles.inputWrapper}>
+                <label htmlFor="newPasswordCheck" className={styles.label}>
+                  새로운 비밀번호 확인{' '}
+                </label>
+                <input
+                  id="newPasswordCheck"
+                  type="password"
+                  className={styles.input}
+                  {...register('newPasswordConfirmation', {
+                    required: '비밀번호는 필수입니다.',
+                    minLength: {
+                      value: 6,
+                      message: '6글자 이상 작성해주세요.',
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: '20글자 이하로 작성해주세요.',
+                    },
+                  })}
+                />
+              </div>
+              {formErrors?.newPasswordConfirmation && (
+                <p className={styles.errorMsg}>
+                  {formErrors.newPasswordConfirmation?.message}
+                </p>
+              )}
+            </div>
+            {isError && isAxiosError(error) && (
+              <p className={styles.errorMsg}>{error.response?.data.message}</p>
             )}
-          </div>
-          <div>
-            <label htmlFor="password">새로운 비밀번호 </label>
-            <input
-              id="password"
-              type="password"
-              {...register('newPassword', {
-                required: '비밀번호는 필수입니다.',
-                minLength: {
-                  value: 6,
-                  message: '6글자 이상 작성해주세요.',
-                },
-                maxLength: {
-                  value: 20,
-                  message: '20글자 이하로 작성해주세요.',
-                },
-              })}
-            />
-            {formErrors?.newPassword && (
-              <p className="error">{formErrors.newPassword?.message}</p>
-            )}
-          </div>
-          <div>
-            <label htmlFor="password">새로운 비밀번호 확인 </label>
-            <input
-              id="password"
-              type="password"
-              {...register('newPasswordConfirmation', {
-                required: '비밀번호는 필수입니다.',
-                minLength: {
-                  value: 6,
-                  message: '6글자 이상 작성해주세요.',
-                },
-                maxLength: {
-                  value: 20,
-                  message: '20글자 이하로 작성해주세요.',
-                },
-              })}
-            />
-            {formErrors?.newPasswordConfirmation && (
-              <p className="error">
-                {formErrors.newPasswordConfirmation?.message}
-              </p>
-            )}
-          </div>
-          {isError && isAxiosError(error) && (
-            <p>{error.response?.data.message}</p>
-          )}
-          <button onClick={handleGoBack}>취소</button>
-          <button disabled={isLoading} type="submit">
-            {isLoading ? '변경중' : '변경하기'}
-          </button>
-        </form>
+            <div className={styles.btnWrapper}>
+              <button className={styles.button} onClick={handleGoBack}>
+                취소
+              </button>
+              <button
+                className={styles.button}
+                disabled={isLoading}
+                type="submit"
+              >
+                {isLoading ? '변경중' : '변경하기'}
+              </button>
+            </div>
+          </form>
+        </div>
       </Layout>
     </div>
   );
