@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './styles/styles.scss';
+import './styles/config/reset.scss';
 import Home from './pages/Home';
 import UploadFeed from './pages/UploadFeed';
 import FeedDetail from './pages/FeedDetail';
