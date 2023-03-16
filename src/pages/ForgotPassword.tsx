@@ -8,6 +8,7 @@ import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
 import { forgotPassword } from '../services/user';
 import { TForgotPassword } from '../types/user';
+import styles from '../styles/forgotPassword.module.scss';
 
 const callbackUrl = `${CLIENT_DOMAIN}/reset-password`;
 
@@ -51,34 +52,44 @@ export default function ForgotPassword() {
   return (
     <div>
       <Layout>
-        <h2>비밀번호 재설정</h2>
-        <p>
-          비밀번호를 잃어버리셨나요? <br />
-          Doljabee에 가입한 이메일을 정확히 입력해주세요. <br />
-          이메일을 통해 비밀번호 변경 링크가 전송됩니다. <br />
-        </p>
-        <form method="POST" onSubmit={handleSubmit(onValid)}>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="text"
-              {...register('email', {
-                required: '이메일은 필수입니다.',
-                pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-                  message: '이메일 형식에 맞지 않습니다.',
-                },
-              })}
-            />
+        <div className={styles.div}>
+          <h2 className={styles.title}>비밀번호 재설정</h2>
+          <p className={styles.textLg}>
+            비밀번호를 잃어버리셨나요? <br />
+          </p>
+          <p className={styles.textSm}>
+            {' '}
+            Doljabee에 가입한 이메일을 정확히 입력해주세요. <br />
+            이메일을 통해 비밀번호 변경 링크가 전송됩니다. <br />
+          </p>
+          <form method="POST" onSubmit={handleSubmit(onValid)}>
+            <div className={styles.div}>
+              <label className={styles.label} htmlFor="email">
+                Email
+              </label>
+              <input
+                id="email"
+                type="text"
+                className={styles.input}
+                {...register('email', {
+                  required: '이메일은 필수입니다.',
+                  pattern: {
+                    value:
+                      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                    message: '이메일 형식에 맞지 않습니다.',
+                  },
+                })}
+              />
+            </div>
             {formErrors?.email && (
-              <p className="error">{formErrors.email?.message}</p>
+              <p className={styles.errorMsg}>{formErrors.email?.message}</p>
             )}
-          </div>
-          {error && <p>{error}</p>}
-          <button type="submit">확인</button>
-        </form>
+            {error && <p className={styles.errorMsg}>{error}</p>}
+            <button className={styles.btn} type="submit">
+              확인
+            </button>
+          </form>
+        </div>
       </Layout>
     </div>
   );
