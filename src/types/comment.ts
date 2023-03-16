@@ -10,6 +10,7 @@ export type TComment = {
   text: string;
   user: string;
   username: string;
+  koreaTime: string;
 };
 
 export type TDeleteCommentForm = {

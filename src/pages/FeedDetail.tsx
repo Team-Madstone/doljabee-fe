@@ -101,7 +101,7 @@ export default function FeedDetail() {
               </button>
               <div className={styles.feedInfo}>
                 <p className={styles.username}>{feed.owner.username} &nbsp;</p>
-                <span className={styles.date}>{feed.createdAt}</span>
+                <span className={styles.date}>{feed.koreaTime}</span>
               </div>
               {user && !userLoading && feed.owner._id === user?._id && (
                 <>

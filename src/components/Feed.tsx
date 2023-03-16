@@ -13,7 +13,7 @@ export default function Feed({ feed }: TProps) {
         <div className={styles.feed}>
           <div className={styles.feedInfo}>
             <p className={styles.username}>{feed.owner.username} &nbsp;</p>
-            <span className={styles.date}>{feed.createdAt}</span>
+            <span className={styles.date}>{feed.koreaTime}</span>
           </div>
           <h3 className={styles.title}>{feed.title}</h3>
           <p className={styles.text}>{feed.text}</p>

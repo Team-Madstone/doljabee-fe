@@ -61,7 +61,7 @@ export default function Comment({ comment }: TProps) {
     <div key={comment._id}>
       <div className={styles.comment}>
         <span className={styles.username}>{comment.username} &nbsp;</span>
-        <span className={styles.createdAt}>{comment.createdAt}</span>
+        <span className={styles.createdAt}>{comment.koreaTime}</span>
       </div>
       <div>
         {isEdit && comment._id === chosenCommentId ? (

@@ -24,6 +24,7 @@ export type TFeed = {
   likes: TLike[];
   comments: TComment[];
   owner: TOwner;
+  koreaTime: string;
 };
 
 export type TFeedMutaionBase = {
