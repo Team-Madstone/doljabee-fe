@@ -21,6 +21,8 @@
       display: block;
       @include mb(5);
       @include textColor($darkgray);
+      @include fontSm;
+      @include bold;
     }
 
     .input {
