@@ -10,6 +10,7 @@ import { UserContext } from '../context/UserContext';
 import { loginUser } from '../services/user';
 import { TLoginForm } from '../types/user';
 import { onLoginSuccess } from '../utils/axios';
+import styles from '../styles/login.module.scss';
 
 export default function Login() {
   const { getUser } = useContext(UserContext);
@@ -55,13 +56,20 @@ export default function Login() {
   return (
     <div>
       <Layout>
-        <div>Login</div>
-        <form method="POST" onSubmit={handleSubmit(onValid)}>
-          <div>
-            <label htmlFor="email">Email</label>
+        <form
+          className={styles.form}
+          method="POST"
+          onSubmit={handleSubmit(onValid)}
+        >
+          <h2 className={styles.title}>Login</h2>
+          <div className={styles.div}>
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
             <input
               id="email"
               type="text"
+              className={styles.input}
               {...register('email', {
                 required: '이메일은 필수입니다.',
                 pattern: {
@@ -71,13 +79,18 @@ export default function Login() {
                 },
               })}
             />
-            {errors?.email && <p className="error">{errors.email?.message}</p>}
+            {errors?.email && (
+              <p className={styles.errorMsg}>{errors.email?.message}</p>
+            )}
           </div>
-          <div>
-            <label htmlFor="password">Password</label>
+          <div className={styles.div}>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
             <input
               id="password"
               type="password"
+              className={styles.input}
               {...register('password', {
                 required: '비밀번호는 필수입니다.',
                 minLength: {
@@ -91,23 +104,23 @@ export default function Login() {
               })}
             />
             {errors?.password && (
-              <p className="error">{errors.password?.message}</p>
+              <p className={styles.errorMsg}>{errors.password?.message}</p>
             )}
           </div>
           {isError && isAxiosError(error) && (
-            <p>{error.response?.data.message}</p>
+            <p className={styles.errorMsg}>{error.response?.data.message}</p>
           )}
           <div>
-            <button type="submit">로그인</button>
+            <button className={styles.btn} type="submit">
+              로그인
+            </button>
           </div>
-          <div>
+          <div className={styles.btnBox}>
             <Link to={APP.SIGNUP}>
-              <button>회원가입</button>
+              <button className={styles.leftBtn}>회원가입</button>
             </Link>
-          </div>
-          <div>
             <Link to={APP.FORGOTPASSWORD}>
-              <button>비밀번호 찾기</button>
+              <button className={styles.rightBtn}>비밀번호 찾기</button>
             </Link>
           </div>
         </form>

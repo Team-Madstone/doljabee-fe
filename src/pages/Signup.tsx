@@ -9,6 +9,7 @@ import { APP } from '../constances/routes';
 import { UserContext } from '../context/UserContext';
 import { signup } from '../services/user';
 import { TSignupForm } from '../types/user';
+import styles from '../styles/signup.module.scss';
 
 const callbackUrl = `${CLIENT_DOMAIN}/user/finish`;
 
@@ -51,13 +52,20 @@ export default function Signup() {
   return (
     <div>
       <Layout>
-        <div>Signup</div>
-        <form method="POST" onSubmit={handleSubmit(onValid)}>
-          <div>
-            <label htmlFor="name">Name</label>
+        <form
+          className={styles.form}
+          method="POST"
+          onSubmit={handleSubmit(onValid)}
+        >
+          <h2 className={styles.title}>Signup</h2>
+          <div className={styles.div}>
+            <label className={styles.label} htmlFor="name">
+              Name
+            </label>
             <input
               id="name"
               type="text"
+              className={styles.input}
               {...register('name', {
                 required: '이름은 필수입니다.',
                 minLength: {
@@ -71,14 +79,17 @@ export default function Signup() {
               })}
             />
             {formErrors?.name && (
-              <p className="error">{formErrors.name?.message}</p>
+              <p className={styles.errorMsg}>{formErrors.name?.message}</p>
             )}
           </div>
-          <div>
-            <label htmlFor="username">Username</label>
+          <div className={styles.div}>
+            <label className={styles.label} htmlFor="username">
+              Username
+            </label>
             <input
               id="username"
               type="text"
+              className={styles.input}
               {...register('username', {
                 required: '닉네임은 필수입니다.',
                 minLength: {
@@ -92,14 +103,17 @@ export default function Signup() {
               })}
             />
             {formErrors?.username && (
-              <p className="error">{formErrors.username?.message}</p>
+              <p className={styles.errorMsg}>{formErrors.username?.message}</p>
             )}
           </div>
-          <div>
-            <label htmlFor="email">Email</label>
+          <div className={styles.div}>
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
             <input
               id="email"
               type="text"
+              className={styles.input}
               {...register('email', {
                 required: '이메일은 필수입니다.',
                 pattern: {
@@ -110,14 +124,17 @@ export default function Signup() {
               })}
             />
             {formErrors?.email && (
-              <p className="error">{formErrors.email?.message}</p>
+              <p className={styles.errorMsg}>{formErrors.email?.message}</p>
             )}
           </div>
-          <div>
-            <label htmlFor="password">Password</label>
+          <div className={styles.div}>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
             <input
               id="password"
               type="password"
+              className={styles.input}
               {...register('password', {
                 required: '비밀번호는 필수입니다.',
                 minLength: {
@@ -131,13 +148,15 @@ export default function Signup() {
               })}
             />
             {formErrors?.password && (
-              <p className="error">{formErrors.password?.message}</p>
+              <p className={styles.errorMsg}>{formErrors.password?.message}</p>
             )}
           </div>
           {isError && isAxiosError(error) && (
-            <p>{error.response?.data.errors[0].msg}</p>
+            <p className={styles.errorMsg}>
+              {error.response?.data.errors[0].msg}
+            </p>
           )}
-          <button type="submit" disabled={isLoading}>
+          <button className={styles.btn} type="submit" disabled={isLoading}>
             {isLoading ? '가입 중' : '가입하기'}
           </button>
         </form>
