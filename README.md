@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# 🧗‍♀️ Doljabee
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![ezgif com-video-to-gif (3)](https://user-images.githubusercontent.com/59763645/228170397-0fa2a26c-9972-44a1-9bcd-d5517beda264.gif)
+![ezgif com-video-to-gif (4)](https://user-images.githubusercontent.com/59763645/228256639-c74e4e71-b592-4f32-8003-12b928bc27eb.gif)
+![ezgif com-video-to-gif (5)](https://user-images.githubusercontent.com/59763645/228262868-5fc10fb8-1ea8-4376-b53c-e01cd25c6d47.gif)
 
-In the project directory, you can run:
 
-### `npm start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## ✏️ About The Project
+클라이밍에 관심이 있는 사람들이 모여 소통할 수 있는 커뮤니티
+<br>
+<br>
+<br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠 개발 환경
 
-### `npm test`
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Scss](https://img.shields.io/badge/Sass-%cc6699.svg?style=for-the-badge&logo=Sass&logoColor=%CC6699)
+![Express](https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white)
+![Node.js](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white)
+![MongoDB](https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white)
+<br>
+<br>
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧚 주요 라이브러리
 
-### `npm run build`
+### axios
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* HTTP request & response
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### react-hook-form
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* form 관리 및 validation 체크
 
-### `npm run eject`
+### react-query
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* 서버 상태 관리하기
+* useInfiniteQuery를 통해 커서 기반 페이지네이션 구현
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br>
+<br>
+<br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🖥 기능
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* 회원가입, 로그인, 로그아웃, 이메일 인증
+* 비밀번호 찾기, 비밀번호 변경, 닉네임 수정
+* 피드 생성, 보기, 수정, 삭제 기능
+* 댓글 기능, 좋아요, 공유하기
 
-## Learn More
+<br>
+<br>
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📒 프로젝트에 관한 기록
+* [Toy Project 기록하기 1. 커뮤니티 사이트 기획하기](https://jihye-dev.tistory.com/59)
+* [Toy Project 기록하기 2. axios로 HTTP 요청 보내기](https://jihye-dev.tistory.com/60) 
+* [Toy Project 기록하기 3. React Hook Form 활용하기](https://jihye-dev.tistory.com/61)
+* [Toy Project 기록하기 4. 파일 업로드하기 with multer](https://jihye-dev.tistory.com/62)
+* [Toy Project 기록하기 5. 세션 인증 방식 vs 토큰 인증 방식](https://jihye-dev.tistory.com/63)
+* [Toy Project 기록하기 6. 회원가입 & 이메일 인증하기](https://jihye-dev.tistory.com/64)
+* [Toy Project 기록하기 7. 로그인 1. jwt로 로그인 구현하기](https://jihye-dev.tistory.com/65)
+* [Toy Project 기록하기 8. 로그인 2. 전역 상태 똑똑하게 공유하기](https://jihye-dev.tistory.com/66)
+* [Toy Project 기록하기 9. React-Query로 서버 상태 관리하기](https://jihye-dev.tistory.com/67)
+* [Toy Project 기록하기 10. React-Query로 무한스크롤 구현하기](https://jihye-dev.tistory.com/68)
+<br>
