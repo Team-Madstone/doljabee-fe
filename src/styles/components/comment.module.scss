@@ -1,15 +1,18 @@
 @import '../mixins.scss';
 
-.comment {
-  @include mb(10);
+.commentMargin {
+  margin-bottom: 20px;
+  .comment {
+    @include mb(10);
 
-  .username {
-    @include textColor($darkgray);
-  }
+    .username {
+      @include textColor($darkgray);
+    }
 
-  .createdAt {
-    @include textColor($info);
-    @include fontSm;
+    .createdAt {
+      @include textColor($info);
+      @include fontSm;
+    }
   }
 }
 

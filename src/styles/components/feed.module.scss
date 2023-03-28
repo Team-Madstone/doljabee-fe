@@ -33,6 +33,7 @@
     .text {
       @include textColor($darkgray);
       @include mb(15);
+      line-height: 1.4;
     }
 
     .imgWrapper {

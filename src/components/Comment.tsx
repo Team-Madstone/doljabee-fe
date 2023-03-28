@@ -58,7 +58,7 @@ export default function Comment({ comment }: TProps) {
   };
 
   return (
-    <div key={comment._id}>
+    <div className={styles.commentMargin} key={comment._id}>
       <div className={styles.comment}>
         <span className={styles.username}>{comment.username} &nbsp;</span>
         <span className={styles.createdAt}>{comment.koreaTime}</span>
