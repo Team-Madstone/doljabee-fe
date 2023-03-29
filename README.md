@@ -35,6 +35,10 @@
 
 * form 관리 및 validation 체크
 
+### context API
+
+* 전역 상태 값 context에 저장하여 공유하기
+
 ### react-query
 
 * 서버 상태 관리하기
